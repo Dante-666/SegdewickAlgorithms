@@ -8,6 +8,8 @@ package com.algorithms.sorting;
  * @version 1.0
  */
 public class MergeSort extends Sort {
+    
+    private int[] auxArray;
 
 	/**
 	 * The only constructor that initializes the array.
@@ -16,49 +18,63 @@ public class MergeSort extends Sort {
 	 *            The array to be sorted
 	 */
 	public MergeSort(int[] array) {
-		super(array);
+	    super(array);
+	    this.auxArray=new int[this.array.length];
 	}
 
 	/**
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
-
-		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (array[i] < array[j]) {
-					this.shiftArrayValues(i, j);
-				}
-				this.arrayAccess += 2;
-				this.comparisions++;
-			}
-
-		}
+	    divideArray(0, this.array.length-1);
 	}
+    
+    /**
+     */
+    public void divideArray(int left, int right){
+	if(right>left){
+
+	    divideArray(left, (left+right)/2);
+	    divideArray((left+right)/2+1,right);
+	    mergeArray(left,(left+right)/2,right);
+	    
+	}
+    }
 
 	/**
-	 * Insert the appropriate value and shift the array.
+	 * Merge the array.
 	 * 
-	 * @param i
+	 * @param left
 	 *            The first index
-	 * @param j
+	 * @param middle
+	 *            The middle index
+	 * @param right
 	 *            The second index
 	 */
-	public void shiftArrayValues(int i, int j) {
-		int temp = array[i];
-		int k = j;
-
-		while (j < i) {
-			array[j + 1] = array[j];
-			this.arrayAccess += 2;
-			this.comparisions++;
-		}
-
-		array[k] = temp;
-
-		this.arrayAccess += 2;
+    public void mergeArray(int left, int middle, int right) {
+	for(int i = left; i<=right;i++){
+	    this.auxArray[i]=this.array[i];
 	}
+	
+	int leftIndex=left;
+	int rightIndex=middle+1;
+	int primeIndex=left;
+
+	while(leftIndex<=middle && rightIndex<=right){
+	    if(this.auxArray[leftIndex]<=this.auxArray[rightIndex]){
+		this.array[primeIndex]=this.auxArray[leftIndex];
+		leftIndex++;
+	    }
+	    else{
+		this.array[primeIndex]=this.auxArray[rightIndex];
+		rightIndex++;
+	    }
+	    primeIndex++;
+	}
+	while(leftIndex<=middle){
+	    this.array[primeIndex]=this.auxArray[leftIndex];
+	    primeIndex++;
+	    leftIndex++;
+	}
+    }
 }

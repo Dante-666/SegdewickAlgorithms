@@ -24,40 +24,36 @@ public class SelectionSort extends Sort {
 	 */
 	public void sortArray() {
 
-		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (array[i] < array[j]) {
-					this.shiftArrayValues(i, j);
+	    int arrLength=this.array.length;
+	    int iMin;
+		for (int i = 0; i < arrLength - 1; i++) {
+		        iMin=i;
+			for (int j = i+1; j < arrLength; j++) {
+				if (array[j] < array[iMin]) {
+					iMin=j;
 				}
 				this.arrayAccess += 2;
 				this.comparisions++;
+			}
+			if(iMin!=i){
+ 			        this.swapArrayValues(i, iMin);
 			}
 
 		}
 	}
 
 	/**
-	 * Insert the appropriate value and shift the array.
+	 * Swap the values.
 	 * 
 	 * @param i
 	 *            The first index
 	 * @param j
 	 *            The second index
 	 */
-	public void shiftArrayValues(int i, int j) {
+	public void swapArrayValues(int i, int j) {
 		int temp = array[i];
-		int k = j;
-
-		while (j < i) {
-			array[j + 1] = array[j];
-			this.arrayAccess += 2;
-			this.comparisions++;
-		}
-
-		array[k] = temp;
+		array[i] = array[j];
+		array[j]=temp;
 
 		this.arrayAccess += 2;
 	}

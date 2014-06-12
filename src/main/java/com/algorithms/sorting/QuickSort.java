@@ -9,6 +9,8 @@ package com.algorithms.sorting;
  */
 public class QuickSort extends Sort {
 
+    private int pivot;
+
 	/**
 	 * The only constructor that initializes the array.
 	 * 
@@ -23,21 +25,20 @@ public class QuickSort extends Sort {
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
-
-		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (array[i] < array[j]) {
-					this.shiftArrayValues(i, j);
-				}
-				this.arrayAccess += 2;
-				this.comparisions++;
-			}
-
-		}
+	    this.quickSort(0, this.array.length);
 	}
+    
+    public quickSort(int left, int right){
+	this.pivot=this.partArray(left, right);
+	this.quickSort(left,pivot);
+	this.quickSort(pivot+1,left);
+	
+    }
+    
+    public partArray(int left, int right){
+	
+    }
+	
 
 	/**
 	 * Insert the appropriate value and shift the array.

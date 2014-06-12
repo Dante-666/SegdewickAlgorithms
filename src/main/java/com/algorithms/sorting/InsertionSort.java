@@ -24,15 +24,14 @@ public class InsertionSort extends Sort{
 	public void sortArray() {
 
 		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (array[i] < array[j]) {
-					this.shiftArrayValues(i, j);
+			for (int j = i; j > 0 ; j--) {
+				if (array[j] < array[j-1]) {
+					this.shiftAdjacentValues(j, j-1);
+					this.arrayAccess+=2;
+					this.comparisions++;
 				}
-				this.arrayAccess+=2;
-				this.comparisions++;
+				else
+				        break;
 			}
 
 		}
@@ -44,21 +43,13 @@ public class InsertionSort extends Sort{
 	 * @param i
 	 *            The first index
 	 * @param j
-	 *            The second index
+	 *            The previous index
 	 */
-	public void shiftArrayValues(int i, int j) {
+	public void shiftAdjacentValues(int i, int j) {
 		int temp = array[i];
-		int k=j;
-
-		while (j < i) {
-			array[j + 1] = array[j];
-			this.arrayAccess+=2;
-			this.comparisions++;
-		}
-		
-		array[k]=temp;
-
-		this.arrayAccess+=2;
+		array[i]=array[j];
+		array[j]=temp;
+		this.arrayAccess+=4;
 	}
 
 }
