@@ -1,46 +1,69 @@
 package com.algorithms.sorting.test;
 
 import com.algorithms.sorting.BubbleSort;
+//import com.algorithms.sorting.InsertionSort;
+import com.algorithms.sorting.Shuffle;
+import com.algorithms.sorting.Sort;
 
 import org.testng.annotations.Test;
 
 @Test(groups = "Test-Sorting")
 public class TestSorting {
 
-        public int[] sortDataGenerator(int seed){
+	private final int[] shuffledArray;
 
-	        int[] array=new int[seed];
-		int rand;
-		int temp;
-		for(int i = 0 ; i < seed - 1 ; i++){
-		        array[i]=i;
-		}
-		for(int i = 0 ; i < seed - 1 ; i++){
-		        rand = (int) Math.random() * (seed - 1);
-			temp=array[i];
-			array[i]=array[rand];
-			array[rand]=temp;
-		}
-		return array;
+	public TestSorting() {
+		// TODO Auto-generated constructor stub
+		shuffledArray = Shuffle.getReverseSortedArray(100);
 	}
-        @Test
+
+	@Test
 	public void testBubbleSort() {
-		
-	        int[] array=sortDataGenerator(1000);
-		
+
+		//int[] array = shuffledArray;
+
 		try {
-		BubbleSort testBubble= new BubbleSort(array);
-		System.out.println(testBubble.toString());
-		testBubble.sortArray();
-		System.out.println(testBubble.toString());
+			Sort testBubble = new BubbleSort(shuffledArray.clone());
+			System.out.println(testBubble.toString());
+			testBubble.sortArray();
+			System.out.println(testBubble.toString());
 		}
-		/*
-		catch (IOException x) {
-		    System.err.println(x);
+
+		catch (Exception x) {
+			System.err.println(x);
 		}
-		*/
-		finally {
-		    
-		}
+
 	}
+	
+	/*@Test
+	public void testMergeSort() {
+
+		//int[] array = shuffledArray;
+
+		try {
+			MergeSort testBubble = new MergeSort(shuffledArray.clone());
+			System.out.println(testBubble.toString());
+			testBubble.sortArray();
+			System.out.println(testBubble.toString());
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+		}
+
+	}
+*/
+/*	public void testInsertionSort() {
+
+		// int[] array = shuffledArray;
+
+		try {
+			InsertionSort testInsertion = new InsertionSort(shuffledArray.clone());
+			System.out.println(testInsertion.toString());
+			testInsertion.sortArray();
+			System.out.println(testInsertion.toString());
+		} catch (Exception x) {
+			System.err.println(x);
+		}
+	}*/
 }
