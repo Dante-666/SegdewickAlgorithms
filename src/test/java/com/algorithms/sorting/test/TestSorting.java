@@ -18,7 +18,7 @@ public class TestSorting {
 
 	public TestSorting() {
 		// TODO Auto-generated constructor stub
-		shuffledArray = Shuffle.getReverseSortedArray(100);
+		shuffledArray = Shuffle.knuthShuffle(20);
 	}
 
 	@Test
@@ -37,8 +37,8 @@ public class TestSorting {
 		}
 
 	}
-	
-        @Test
+
+	@Test
 	public void testSelectionSort() {
 
 		try {
@@ -54,11 +54,12 @@ public class TestSorting {
 		}
 
 	}
-        @Test
+
+	@Test
 	public void testShellSort() {
 
 		try {
-			Sort testShell = new SelectionSort(shuffledArray.clone());
+			Sort testShell = new ShellSort(shuffledArray.clone());
 			System.out.println("Shell Sort");
 			System.out.println(testShell.toString());
 			testShell.sortArray();
@@ -71,11 +72,11 @@ public class TestSorting {
 
 	}
 
-        @Test
+	@Test
 	public void testInsertionSort() {
 
 		try {
-		        System.out.println("Insertion Sort");
+			System.out.println("Insertion Sort");
 			Sort testInsertion = new InsertionSort(shuffledArray.clone());
 			System.out.println(testInsertion.toString());
 			testInsertion.sortArray();
@@ -85,7 +86,7 @@ public class TestSorting {
 		}
 	}
 
-        @Test
+	@Test
 	public void testMergeSort() {
 
 		try {
