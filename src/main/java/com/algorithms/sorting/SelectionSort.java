@@ -24,7 +24,7 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class SelectionSort extends Sort {
+public class SelectionSort<T extends Comparable<T>> extends Sort<T> {
 
 	/**
 	 * The only constructor that initializes the array.
@@ -32,7 +32,7 @@ public class SelectionSort extends Sort {
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public SelectionSort(int[] array) {
+	public SelectionSort(T[] array) {
 		super(array);
 	}
 
@@ -67,7 +67,7 @@ public class SelectionSort extends Sort {
 			 * element is lower than "iMin". If so, update "iMin".
 			 */
 			for (int j = i + 1; j < arrLength; j++) {
-				if (array[j] < array[iMin]) {
+				if (isLesser(j, iMin)) {
 					iMin = j;
 				}
 				this.arrayAccess += 2;
@@ -94,7 +94,7 @@ public class SelectionSort extends Sort {
 	 *            The second index
 	 */
 	public void swapArrayValues(int i, int j) {
-		int temp = array[i];
+		T temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;
 

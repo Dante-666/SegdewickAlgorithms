@@ -1,5 +1,7 @@
 package com.algorithms.sorting;
 
+import java.util.Arrays;
+
 /**
  * This is the abstract class with basic methods and members required for any
  * type of Sorting.
@@ -7,20 +9,20 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public abstract class Sort {
+public abstract class Sort<T extends Comparable<T>> {
 
-	protected int[] array;
+	protected T[] array;
 	protected long arrayAccess;
 	protected long comparisions;
 
-	public Sort(int[] array) {
+	public Sort(T[] array) {
 		this.array = array;
 		this.arrayAccess = 0;
 		this.comparisions = 0;
 	}
 
 	/**
-	 * Implement this method to acheive different types of sorting.
+	 * Implement this method to achieve different types of sorting.
 	 */
 	public abstract void sortArray();
 
@@ -34,7 +36,7 @@ public abstract class Sort {
 	}
 
 	/**
-	 * Returns the number of times any comparisions were made.
+	 * Returns the number of times any comparisons were made.
 	 * 
 	 * @return
 	 */
@@ -42,12 +44,49 @@ public abstract class Sort {
 		return this.comparisions;
 	}
 
-	public String toString() {
-		String temp = "";
+	/**
+	 * If the Type of i is less than the Type of j, return true.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
 
-		for (int i = 0; i < this.array.length; i++) {
-			temp += this.array[i] + " ";
-		}
+	public boolean isLesser(int i, int j) {
+		if (this.array[i].compareTo(this.array[j]) < 0) {
+			return true;
+		} else
+			return false;
+	}
+
+	/**
+	 * If the Type of i is equal to the Type of j, return true.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+
+	public boolean isEqual(int i, int j) {
+		return this.array[i].equals(this.array[j]);
+	}
+
+	/**
+	 * If the Type of i is greater than the Type of j, return true.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	public boolean isGreater(int i, int j) {
+		if (this.array[i].compareTo(this.array[j]) > 0) {
+			return true;
+		} else
+			return false;
+	}
+
+	public String toString() {
+		String temp = Arrays.toString(array);
 
 		temp += "\nArray Length: " + this.array.length
 				+ "\nArray Comparisions: " + this.getComparisions()

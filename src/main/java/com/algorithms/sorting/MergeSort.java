@@ -21,9 +21,9 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class MergeSort extends Sort {
+public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 
-	private int[] auxArray;
+	private T[] auxArray;
 
 	/**
 	 * The only constructor that initializes the array.
@@ -31,9 +31,9 @@ public class MergeSort extends Sort {
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public MergeSort(int[] array) {
+	public MergeSort(T[] array) {
 		super(array);
-		this.auxArray = new int[this.array.length];
+		this.auxArray = array.clone();
 	}
 
 	/**
@@ -64,7 +64,8 @@ public class MergeSort extends Sort {
 	/**
 	 * Merge the array by copying the whole sequence into an aux array. This is
 	 * the reason why merge sort is not "In Place" algorithm since it uses O(n)
-	 * auxiliary spaces.
+	 * auxiliary spaces. This way we achieve a "Stable" sort. In case of Quick
+	 * Sort, we don't use an extra array and that is why it becomes "Unstable".
 	 * 
 	 * @param low
 	 *            The first index
@@ -79,6 +80,7 @@ public class MergeSort extends Sort {
 		 */
 		for (int i = low; i <= high; i++) {
 			this.auxArray[i] = this.array[i];
+			this.arrayAccess += 2;
 		}
 
 		/**
@@ -96,9 +98,10 @@ public class MergeSort extends Sort {
 		 */
 		while (leftIndex <= middle && rightIndex <= high) {
 			/**
-			 * If the leftValue is <= rightValue, then put it in the
+			 * If the leftValue is <= rightValue, then put it in the primary
+			 * array.
 			 */
-			if (this.auxArray[leftIndex] <= this.auxArray[rightIndex])
+			if (isEqual(leftIndex, rightIndex) || isLesser(leftIndex, rightIndex))
 
 				this.array[primeIndex++] = this.auxArray[leftIndex++];
 
@@ -106,11 +109,16 @@ public class MergeSort extends Sort {
 
 				this.array[primeIndex++] = this.auxArray[rightIndex++];
 
+			this.comparisions++;
+			this.arrayAccess += 4;
+
 		}
 		while (leftIndex <= middle) {
 			this.array[primeIndex] = this.auxArray[leftIndex];
 			primeIndex++;
 			leftIndex++;
+
+			this.arrayAccess += 2;
 		}
 	}
 }

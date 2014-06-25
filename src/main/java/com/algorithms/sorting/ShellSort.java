@@ -32,7 +32,7 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class ShellSort extends Sort {
+public class ShellSort<T extends Comparable<T>> extends Sort<T> {
 
 	/**
 	 * The only constructor that initializes the array.
@@ -40,7 +40,7 @@ public class ShellSort extends Sort {
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public ShellSort(int[] array) {
+	public ShellSort(T[] array) {
 		super(array);
 	}
 
@@ -50,7 +50,8 @@ public class ShellSort extends Sort {
 	public void sortArray() {
 
 		int arrLength = this.array.length;
-		int temp, inner, outer;
+		int inner, outer;
+		T temp;
 		/**
 		 * Create the Gap sequences, in this I have followed the useless Gap
 		 * sequence that was given by Shell which does not increase performance
@@ -118,7 +119,8 @@ public class ShellSort extends Sort {
 				 * this loop. See ahead for the final operation. The "outer"
 				 * index is pointing to the 0th element at this stage.
 				 */
-				for (outer = inner; outer >= gap && array[outer - gap] > temp; outer -= gap) {
+				for (outer = inner; outer >= gap
+						&& isGreater(array[outer - gap], temp); outer -= gap) {
 					array[outer] = array[outer - gap];
 					this.arrayAccess += 3;
 					this.comparisions++;
@@ -138,6 +140,23 @@ public class ShellSort extends Sort {
 				array[outer] = temp;
 			}
 
+		}
+	}
+
+	/**
+	 * To return true only when object i is greater than object j
+	 * 
+	 * Special one for this special sort.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	private boolean isGreater(T i, T j) {
+		if (i.compareTo(j) > 0) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

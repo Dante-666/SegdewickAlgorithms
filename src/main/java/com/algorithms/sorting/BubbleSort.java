@@ -23,7 +23,7 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class BubbleSort extends Sort {
+public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 
 	/**
 	 * The only constructor that initializes the array.
@@ -31,7 +31,7 @@ public class BubbleSort extends Sort {
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public BubbleSort(int[] array) {
+	public BubbleSort(T[] array) {
 		super(array);
 	}
 
@@ -59,7 +59,7 @@ public class BubbleSort extends Sort {
 				 * them. This will push the largest element in the last place
 				 * and so on.
 				 */
-				if (this.array[j + 1] < this.array[j]) {
+				if (isLesser(j + 1, j)) {
 					this.swapArrayValues(j + 1, j);
 				}
 			}
@@ -76,7 +76,7 @@ public class BubbleSort extends Sort {
 	 *            The second index
 	 */
 	public void swapArrayValues(int i, int j) {
-		int temp = this.array[i];
+		T temp = this.array[i];
 
 		this.array[i] = this.array[j];
 		this.array[j] = temp;

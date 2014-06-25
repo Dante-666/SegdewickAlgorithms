@@ -29,14 +29,14 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class InsertionSort extends Sort {
+public class InsertionSort<T extends Comparable<T>> extends Sort<T> {
 	/**
 	 * The only constructor that initializes the array.
 	 * 
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public InsertionSort(int[] array) {
+	public InsertionSort(T[] array) {
 		super(array);
 	}
 
@@ -71,7 +71,7 @@ public class InsertionSort extends Sort {
 				 * Eventually, this constant swapping replicates the original
 				 * behavior and thus maintains "Stability" too.
 				 */
-				if (array[j] < array[j - 1]) {
+				if (isLesser(j, j - 1)) {
 					this.shiftAdjacentValues(j);
 					this.arrayAccess += 2;
 					this.comparisions++;
@@ -91,7 +91,7 @@ public class InsertionSort extends Sort {
 	 * 
 	 */
 	public void shiftAdjacentValues(int i) {
-		int temp = array[i];
+		T temp = array[i];
 		array[i] = array[i - 1];
 		array[i - 1] = temp;
 		this.arrayAccess += 4;

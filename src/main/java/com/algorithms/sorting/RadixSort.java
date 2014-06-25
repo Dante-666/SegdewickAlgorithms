@@ -8,7 +8,7 @@ package com.algorithms.sorting;
  * @author sinsi02
  * @version 1.0
  */
-public class RadixSort extends Sort {
+public class RadixSort<T extends Comparable<T>> extends Sort<T> {
 
 	/**
 	 * The only constructor that initializes the array.
@@ -16,7 +16,7 @@ public class RadixSort extends Sort {
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public RadixSort(int[] array) {
+	public RadixSort(T[] array) {
 		super(array);
 	}
 
@@ -30,7 +30,7 @@ public class RadixSort extends Sort {
 				/*
 				 * this.arrayAccess += 2; this.comparisions++;
 				 */
-				if (array[i] < array[j]) {
+				if (true) {
 					this.shiftArrayValues(i, j);
 				}
 				this.arrayAccess += 2;
@@ -49,7 +49,7 @@ public class RadixSort extends Sort {
 	 *            The second index
 	 */
 	public void shiftArrayValues(int i, int j) {
-		int temp = array[i];
+		T temp = array[i];
 		int k = j;
 
 		while (j < i) {
@@ -61,14 +61,5 @@ public class RadixSort extends Sort {
 		array[k] = temp;
 
 		this.arrayAccess += 2;
-	}
-
-	/**
-	 * Returns the number of times the array was accessed.
-	 * 
-	 * @return
-	 */
-	public long getArrayAccessCount() {
-		return this.arrayAccess;
 	}
 }

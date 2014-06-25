@@ -1,64 +1,41 @@
 package com.algorithms.sorting;
 
+import com.algorithms.datastructures.MaxPriorityQueue;
+
 /**
- * The Insertion sort algorithm works by passing the array n times and inserting
- * the next element in an already sorted array.
+ * The Heap sort algorithm works by using a data structure called as a Binary
+ * Heap or a Priority Queue.
+ * 
+ * 
  * 
  * @author sinsi02
  * @version 1.0
  */
-public class HeapSort extends Sort {
+public class HeapSort<T extends Comparable<T>> extends Sort<T> {
+
+	private MaxPriorityQueue<T> heap;
 
 	/**
-	 * The only constructor that initializes the array.
+	 * The only constructor that initializes the array which represents the
+	 * heap.
 	 * 
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public HeapSort(int[] array) {
+	public HeapSort(T[] array) {
 		super(array);
+		this.heap = new MaxPriorityQueue<T>(array.clone());
 	}
 
 	/**
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
-
-		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (array[i] < array[j]) {
-					this.shiftArrayValues(i, j);
-				}
-				this.arrayAccess += 2;
-				this.comparisions++;
-			}
-
+		heap.buildMaxHeap();
+		for (int i = this.array.length - 1; i >= 0; i--) {
+			this.array[i] = this.heap.deleteLargest();
 		}
-	}
-
-	/**
-	 * Insert the appropriate value and shift the array.
-	 * 
-	 * @param i
-	 *            The first index
-	 * @param j
-	 *            The second index
-	 */
-	public void shiftArrayValues(int i, int j) {
-		int temp = array[i];
-		int k = j;
-
-		while (j < i) {
-			array[j + 1] = array[j];
-			this.arrayAccess += 2;
-			this.comparisions++;
-		}
-
-		array[k] = temp;
-
-		this.arrayAccess += 2;
+		this.arrayAccess = heap.getArrayAccessCount();
+		this.comparisions = heap.getComparisions();
 	}
 }

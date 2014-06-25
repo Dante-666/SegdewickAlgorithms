@@ -21,9 +21,9 @@ public class Shuffle {
 	 * @param seed
 	 * @return Shuffled Array
 	 */
-	public static int[] knuthShuffle(int seed) {
+	public static Integer[] knuthShuffleNoDuplicates(int seed) {
 
-		int[] array = new int[seed];
+		Integer[] array = new Integer[seed];
 		int rand;
 		int temp;
 		/**
@@ -31,6 +31,39 @@ public class Shuffle {
 		 */
 		for (int i = 0; i < seed; i++) {
 			array[i] = i;
+		}
+		/**
+		 * Pass the array once and based on the current index "i", pick a random
+		 * number "rand" between [0 - i] and swap the "ith" and the "randth"
+		 * elements.
+		 */
+		for (int i = 1; i < seed; i++) {
+			rand = (int) (Math.random() * (i));
+			temp = array[i];
+			array[i] = array[rand];
+			array[rand] = temp;
+		}
+		return array;
+	}
+
+	/**
+	 * This method iterates the array once and performs the shuffling in linear
+	 * time O(n) as visible in the code itself.
+	 * 
+	 * @param seed
+	 * @return Shuffled Array
+	 */
+	public static Integer[] knuthShuffleWithDuplicates(int seed) {
+
+		Integer[] array = new Integer[seed];
+		int rand;
+		int temp;
+		/**
+		 * Initialize the array and put it in sorted order first.
+		 */
+		for (int i = 0; i < seed; i += 2) {
+			array[i] = i;
+			array[i + 1] = i;
 		}
 		/**
 		 * Pass the array once and based on the current index "i", pick a random

@@ -22,9 +22,12 @@ import org.apache.commons.collections4.bag.HashBag;
  * 
  * Also the graph can be initialized only once with the current settings.
  * 
+ * Design Pattern : Decouple the Graph datatype from the Graph Processing
+ * algorithms. Pass the Graph to the routine and query it for information.
+ * 
  * @author Dante
  * @version 1.0
- *  
+ * 
  */
 public class Graph {
 
