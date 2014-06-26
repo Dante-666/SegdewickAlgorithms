@@ -1,65 +1,106 @@
 package com.algorithms.sorting;
 
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Queue;
+
 /**
- * The Radix sort algorithm works when we know what elements are present in the
- * array. It simply places the elements in the respective buckets and does the
- * job.
+ * The Radix sort algorithm works when there are Integers in the array.
  * 
  * @author sinsi02
  * @version 1.0
  */
-public class RadixSort<T extends Comparable<T>> extends Sort<T> {
+public class RadixSort {
+
+	private final Integer[] array;
+	private Queue<Integer>[] queue;
+	private long arrayAccess;
+	private long comparisions;
 
 	/**
-	 * The only constructor that initializes the array.
+	 * The only constructor that initializes the array and the queue.
 	 * 
 	 * @param array
 	 *            The array to be sorted
 	 */
-	public RadixSort(T[] array) {
-		super(array);
+	@SuppressWarnings("unchecked")
+	public RadixSort(Integer[] array) {
+		this.array = array;
+		queue = (Queue<Integer>[]) new ArrayDeque[10];
+		for (int i = 0; i < 10; i++)
+			queue[i] = new ArrayDeque<>();
 	}
 
 	/**
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
+		int divisor = 10;
+		int max = 1;
+		boolean maxSet = false;
 
-		for (int i = 0; i < this.array.length; i++) {
-			for (int j = i; j > 0; j--) {
-				/*
-				 * this.arrayAccess += 2; this.comparisions++;
-				 */
-				if (true) {
-					this.shiftArrayValues(i, j);
+		while (max / (divisor / 10) > 0) {
+
+			for (Integer temp : array) {
+
+				if (!maxSet) {
+					if (temp > max)
+						max = temp;
+					this.comparisions++;
+					this.arrayAccess += 2;
 				}
-				this.arrayAccess += 2;
-				this.comparisions++;
+
+				queue[(temp % divisor) / (divisor / 10)].add(temp);
+
+				this.arrayAccess++;
+
 			}
 
+			if (maxSet == false)
+				maxSet = true;
+
+			divisor *= 10;
+
+			int j = 0;
+
+			for (int i = 0; i < 10; i++) {
+
+				while (!queue[i].isEmpty()) {
+
+					array[j] = queue[i].remove();
+					j++;
+
+				}
+			}
+			this.arrayAccess += 10;
 		}
 	}
 
 	/**
-	 * Insert the appropriate value and shift the array.
+	 * Returns the number of times the array was accessed.
 	 * 
-	 * @param i
-	 *            The first index
-	 * @param j
-	 *            The second index
+	 * @return
 	 */
-	public void shiftArrayValues(int i, int j) {
-		T temp = array[i];
-		int k = j;
+	public long getArrayAccessCount() {
+		return this.arrayAccess;
+	}
 
-		while (j < i) {
-			array[j + 1] = array[j];
-			this.arrayAccess += 2;
-			this.comparisions++;
-		}
+	/**
+	 * Returns the number of times any comparisons were made.
+	 * 
+	 * @return
+	 */
+	public long getComparisions() {
+		return this.comparisions;
+	}
 
-		array[k] = temp;
+	public String toString() {
+		String temp = Arrays.toString(array);
 
-		this.arrayAccess += 2;
+		temp += "\nArray Length: " + this.array.length
+				+ "\nArray Comparisions: " + this.getComparisions()
+				+ "\nArray Access: " + this.getArrayAccessCount();
+
+		return temp;
 	}
 }

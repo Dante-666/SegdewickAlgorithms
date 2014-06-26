@@ -57,7 +57,6 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 			divideArray(low, (low + high) / 2);
 			divideArray((low + high) / 2 + 1, high);
 			mergeArray(low, (low + high) / 2, high);
-
 		}
 	}
 
@@ -96,12 +95,18 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 		 * Now as long as there are values in the left or right arrays, just
 		 * keep the loop running.
 		 */
-		while (leftIndex <= middle && rightIndex <= high) {
+		while (true) {
 			/**
 			 * If the leftValue is <= rightValue, then put it in the primary
 			 * array.
 			 */
-			if (isEqual(leftIndex, rightIndex) || isLesser(leftIndex, rightIndex))
+			if (leftIndex > middle) {
+				break;
+			}
+			if (rightIndex > high) {
+				break;
+			}
+			if (isLesser(leftIndex, rightIndex))
 
 				this.array[primeIndex++] = this.auxArray[leftIndex++];
 
@@ -117,6 +122,13 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 			this.array[primeIndex] = this.auxArray[leftIndex];
 			primeIndex++;
 			leftIndex++;
+
+			this.arrayAccess += 2;
+		}
+		while (rightIndex <= high) {
+			this.array[primeIndex] = this.auxArray[leftIndex];
+			primeIndex++;
+			rightIndex++;
 
 			this.arrayAccess += 2;
 		}

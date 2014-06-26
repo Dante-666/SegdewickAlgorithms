@@ -50,7 +50,7 @@ public class Graph {
 		this.E = E;
 		adj = (Bag<Integer>[]) new HashBag[V];
 		for (int v = 0; v < V; v++) {
-			adj[v] = new HashBag<Integer>();
+			adj[v] = new HashBag<>();
 		}
 	}
 
