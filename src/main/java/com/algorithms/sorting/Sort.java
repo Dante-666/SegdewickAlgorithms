@@ -27,6 +27,14 @@ public abstract class Sort<T extends Comparable<T>> {
 	public abstract void sortArray();
 
 	/**
+	 * Sets the array
+	 */
+
+	public void setArray(T[] array) {
+		this.array = array;
+	}
+
+	/**
 	 * Returns the number of times the array was accessed.
 	 * 
 	 * @return
@@ -42,6 +50,15 @@ public abstract class Sort<T extends Comparable<T>> {
 	 */
 	public long getComparisions() {
 		return this.comparisions;
+	}
+
+	/**
+	 * Returns the array.
+	 * 
+	 * @return
+	 */
+	public T[] getArray() {
+		return this.array;
 	}
 
 	/**

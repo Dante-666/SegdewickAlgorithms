@@ -40,6 +40,9 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+		
 		divideArray(0, this.array.length - 1);
 	}
 
@@ -77,6 +80,7 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 		/**
 		 * Copying the whole set of values first.
 		 */
+
 		for (int i = low; i <= high; i++) {
 			this.auxArray[i] = this.array[i];
 			this.arrayAccess += 2;
@@ -97,8 +101,7 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 		 */
 		while (true) {
 			/**
-			 * If the leftValue is <= rightValue, then put it in the primary
-			 * array.
+			 * Break as soon as one of them crosses over.
 			 */
 			if (leftIndex > middle) {
 				break;
@@ -106,7 +109,13 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 			if (rightIndex > high) {
 				break;
 			}
-			if (isLesser(leftIndex, rightIndex))
+
+			/**
+			 * If the leftValue is <= rightValue, then put it in the primary
+			 * array.
+			 */
+			if (isLesser(leftIndex, rightIndex)
+					|| isEqual(leftIndex, rightIndex))
 
 				this.array[primeIndex++] = this.auxArray[leftIndex++];
 
@@ -119,18 +128,43 @@ public class MergeSort<T extends Comparable<T>> extends Sort<T> {
 
 		}
 		while (leftIndex <= middle) {
-			this.array[primeIndex] = this.auxArray[leftIndex];
-			primeIndex++;
-			leftIndex++;
+			this.array[primeIndex++] = this.auxArray[leftIndex++];
 
 			this.arrayAccess += 2;
 		}
 		while (rightIndex <= high) {
-			this.array[primeIndex] = this.auxArray[leftIndex];
-			primeIndex++;
-			rightIndex++;
+			this.array[primeIndex++] = this.auxArray[rightIndex++];
 
 			this.arrayAccess += 2;
 		}
+	}
+
+	/**
+	 * If the Type of i is less than the Type of j, return true. Overridden to
+	 * compare Auxiliary array values.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	@Override
+	public boolean isLesser(int i, int j) {
+		if (this.auxArray[i].compareTo(this.auxArray[j]) < 0) {
+			return true;
+		} else
+			return false;
+	}
+
+	/**
+	 * If the Type of i is equal to the Type of j, return true. Overridden to
+	 * compare Auxiliary array values.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+	@Override
+	public boolean isEqual(int i, int j) {
+		return this.auxArray[i].equals(this.auxArray[j]);
 	}
 }

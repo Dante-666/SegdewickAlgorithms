@@ -53,6 +53,10 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 		 * Till the left and right positions cross over.
 		 */
 		if (left < right) {
+
+			this.arrayAccess = 0;
+			this.comparisions = 0;
+
 			/**
 			 * The will part the array, more information is given below.
 			 */
@@ -74,6 +78,10 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public int partArray(int left, int right) {
 
+		/*
+		 * if (right - left == 1) { if (isLesser(left, right)) {
+		 * this.swapArrayValues(left, right); } return right+1; }
+		 */
 		/**
 		 * Start the count, since Java passes by reference only and these values
 		 * are held in the stack, it is the only way.
@@ -102,12 +110,12 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 			 */
 
 			while (isLesser(leftIndex, left)) {
-				leftIndex++;
 				/**
 				 * If the leftIndex overflows, then stop immediately.
 				 */
-				if (leftIndex == right)
+				if (leftIndex >= right)
 					break;
+				leftIndex++;
 
 				this.arrayAccess++;
 				this.comparisions++;
@@ -116,13 +124,14 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 			 * Till the rightIndex finds an element which is lesser than the
 			 * pivot, keep decrementing it.
 			 */
-			while (isGreater(rightIndex, left)) {
-				rightIndex--;
+			while (isGreater(rightIndex, left) || isEqual(rightIndex, left)) {
 				/**
 				 * If the rightIndex overflows, then stop immediately.
 				 */
-				if (rightIndex == left)
+				if (rightIndex <= left)
 					break;
+				rightIndex--;
+
 				this.arrayAccess++;
 				this.comparisions++;
 			}

@@ -45,6 +45,9 @@ public class InsertionSort<T extends Comparable<T>> extends Sort<T> {
 	 * is mentioned below.
 	 */
 	public void sortArray() {
+		
+		this.arrayAccess = 0;
+		this.comparisions = 0;
 
 		int arrLength = this.array.length;
 

@@ -49,6 +49,9 @@ public class ShellSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public void sortArray() {
 
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+
 		int arrLength = this.array.length;
 		int inner, outer;
 		T temp;

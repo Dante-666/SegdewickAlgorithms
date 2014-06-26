@@ -8,11 +8,14 @@ import java.nio.file.Paths;
 
 import com.algorithms.graph.Graph;
 
+import org.testng.Reporter;
 import org.testng.annotations.Test;
+//import org.testng.annotations.BeforeTest;
 
 @Test(groups = "Test-Graphs")
 public class TestGraph {
-
+	
+	//@BeforeTest(value = "Sorting")
 	public void testGraphInputStreamConstruction() {
 		// Path file = FileSystems.getDefault().getPath("/src/main/resources",
 		// "testGraph.txt"); //"testGraph.txt";
@@ -26,7 +29,7 @@ public class TestGraph {
 
 			testGraph = new Graph(in);
 
-			System.out.println(testGraph);// .toString();
+			Reporter.log(testGraph.toString());// .toString();
 
 			/*
 			 * BufferedReader reader = new BufferedReader( new

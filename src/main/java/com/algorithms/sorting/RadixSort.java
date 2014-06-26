@@ -35,6 +35,10 @@ public class RadixSort {
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
+
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+
 		int divisor = 10;
 		int max = 1;
 		boolean maxSet = false;
@@ -92,6 +96,10 @@ public class RadixSort {
 	 */
 	public long getComparisions() {
 		return this.comparisions;
+	}
+
+	public Integer[] getArray() {
+		return this.array;
 	}
 
 	public String toString() {

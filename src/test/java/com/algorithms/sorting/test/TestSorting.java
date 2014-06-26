@@ -8,152 +8,581 @@ import com.algorithms.sorting.SelectionSort;
 import com.algorithms.sorting.ShellSort;
 import com.algorithms.sorting.MergeSort;
 import com.algorithms.sorting.QuickSort;
-import com.algorithms.sorting.Shuffle;
+import com.algorithms.sorting.ShuffleArray;
 import com.algorithms.sorting.Sort;
 
 import org.testng.annotations.Test;
+import org.testng.Reporter;
 
-@Test(groups = "Test-Sorting")
+@Test(groups = "Sorting")
 public class TestSorting {
 
-	private final Integer[] shuffledArray;
+	private final Integer[] shuffledArrayWithDuplicatesInt;
+	private final Character[] shuffledArrayWithDuplicatesChar;
+	private Sort<Integer> testSortIntegers;
+	private Sort<Character> testSortCharacters;
+	private long timeKeeper;
 
 	public TestSorting() {
-		// TODO Auto-generated constructor stub
-		shuffledArray = Shuffle.knuthShuffleWithDuplicates(20);
+		shuffledArrayWithDuplicatesInt = ShuffleArray
+				.knuthShuffleWithDuplicatesInt(10000);
+		shuffledArrayWithDuplicatesChar = ShuffleArray
+				.knuthShuffleWithDuplicatesChar(10000);
+		testSortIntegers = null;
+		testSortCharacters = null;
+		timeKeeper = 0;
 	}
 
-	@Test
-	public void testBubbleSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testBubbleSortInt() {
+
+		Reporter.log("[ ** Bubble Sort ** ]\n");
 
 		try {
-			Sort<Integer> testBubble = new BubbleSort<>(shuffledArray.clone());
-			System.out.println("<----Bubble Sort---->");
-			System.out.println(testBubble.toString());
-			testBubble.sortArray();
-			System.out.println(testBubble.toString());
+			testSortIntegers = new BubbleSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array\n");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array\n");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			// Reporter.log(testSortIntegers.toString());
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array\n");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			// Reporter.log(testSortIntegers.toString());
+			timeKeeper = System.currentTimeMillis();
+			// Thread.sleep(10);
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+			// Reporter.log(testSortIntegers.toString());
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
+			throw x;
 		}
 
 	}
 
-	@Test
-	public void testSelectionSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testSelectionSortInt() {
 
+		Reporter.log("[ ** Selection Sort ** ]\n");
 		try {
-			Sort<Integer> testSelection = new SelectionSort<>(
-					shuffledArray.clone());
-			System.out.println("<----Selection Sort---->");
-			System.out.println(testSelection.toString());
-			testSelection.sortArray();
-			System.out.println(testSelection.toString());
+			testSortIntegers = new SelectionSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
+			throw x;
 		}
 
 	}
 
-	@Test
-	public void testShellSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testShellSortInt() {
 
+		Reporter.log("[ ** Shell Sort ** ]\n");
 		try {
-			Sort<Integer> testShell = new ShellSort<>(shuffledArray.clone());
-			System.out.println("<----Shell Sort---->");
-			System.out.println(testShell.toString());
-			testShell.sortArray();
-			System.out.println(testShell.toString());
+			testSortIntegers = new ShellSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
+			throw x;
 		}
 
 	}
 
-	@Test
-	public void testInsertionSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testInsertionSortInt() {
 
+		Reporter.log("[ ** Insertion Sort ** ]\n");
 		try {
-			System.out.println("<----Insertion Sort---->");
-			Sort<Integer> testInsertion = new InsertionSort<>(
-					shuffledArray.clone());
-			System.out.println(testInsertion.toString());
-			testInsertion.sortArray();
-			System.out.println(testInsertion.toString());
+			testSortIntegers = new InsertionSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		} catch (Exception x) {
 			System.err.println(x);
+			throw x;
 		}
 	}
 
-	@Test
-	public void testMergeSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testMergeSortInt() {
 
+		Reporter.log("[ ** Merge Sort ** ]\n");
 		try {
-			Sort<Integer> testMerge = new MergeSort<>(shuffledArray.clone());
-			System.out.println("<----Merge Sort---->");
-			System.out.println(testMerge.toString());
-			testMerge.sortArray();
-			System.out.println(testMerge.toString());
+			testSortIntegers = new MergeSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
+			throw x;
 		}
 
 	}
 
-	//@Test
-	/*public void testQuickSort() {
+	@Test(groups = { "Integer-Sorting" })
+	public void testQuickSortInt() {
+
+		Reporter.log("[ ** Quick Sort ** ]\n");
 
 		try {
-			Sort<Integer> testQuick = new QuickSort<>(shuffledArray.clone());
-			System.out.println("<----Quick Sort---->");
-			System.out.println(testQuick.toString());
-			testQuick.sortArray();
-			System.out.println(testQuick.toString());
+			testSortIntegers = new QuickSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
-		}
-
-	}*/
-
-	@Test
-	public void testHeapSort() {
-
-		try {
-			Sort<Integer> testHeap = new HeapSort<>(shuffledArray.clone());
-			System.out.println("<----Heap Sort---->");
-			System.out.println(testHeap.toString());
-			testHeap.sortArray();
-			System.out.println(testHeap.toString());
-		}
-
-		catch (Exception x) {
-			System.err.println(x);
+			throw x;
 		}
 
 	}
-	
-	@Test
-	public void testRadixSort() {
+
+	@Test(groups = { "Integer-Sorting" })
+	public void testHeapSortInt() {
+
+		Reporter.log("[ ** Heap Sort ** ]\n");
 
 		try {
-			RadixSort testRadix = new RadixSort(shuffledArray.clone());
-			System.out.println("<----Radix Sort---->");
-			System.out.println(testRadix.toString());
+			testSortIntegers = new HeapSort<>(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortIntegers.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortIntegers.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = "Integer-Sorting")
+	public void testRadixSortInt() {
+
+		Reporter.log("[ ** Radix Sort ** ]\n");
+		try {
+			RadixSort testRadix = new RadixSort(
+					shuffledArrayWithDuplicatesInt.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
 			testRadix.sortArray();
-			System.out.println(testRadix.toString());
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testRadix.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testRadix.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testRadix.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
 		}
 
 		catch (Exception x) {
 			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testBubbleSortChar() {
+
+		Reporter.log("[ ** Bubble Sort ** ]\n");
+		try {
+			testSortCharacters = new BubbleSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testSelectionSortChar() {
+
+		Reporter.log("[ ** Selection Sort ** ]\n");
+		try {
+			testSortCharacters = new SelectionSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testShellSortChar() {
+
+		Reporter.log("[ ** Shell Sort ** ]\n");
+
+		try {
+			testSortCharacters = new ShellSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testInsertionSortChar() {
+
+		Reporter.log("[ ** Insertion Sort ** ]\n");
+		try {
+			testSortCharacters = new InsertionSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		} catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testMergeSortChar() {
+
+		Reporter.log("[ ** Merge Sort ** ]");
+		try {
+			testSortCharacters = new MergeSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testQuickSortChar() {
+
+		Reporter.log("[ ** Quick Sort ** ]\n");
+		try {
+			testSortCharacters = new QuickSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
+		}
+
+	}
+
+	@Test(groups = { "Character-Sorting" })
+	public void testHeapSortChar() {
+
+		Reporter.log("[ ** Heap Sort ** ]\n");
+		try {
+			testSortCharacters = new HeapSort<>(
+					shuffledArrayWithDuplicatesChar.clone());
+
+			Reporter.log("1. Unsorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("2. Sorted Random Array : ");
+
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+			Reporter.log("3. Reversed Sorted Array : ");
+
+			ShuffleArray.reverseArray(testSortCharacters.getArray());
+			timeKeeper = System.currentTimeMillis();
+			testSortCharacters.sortArray();
+
+			Reporter.log((System.currentTimeMillis() - timeKeeper) + " ms\n");
+
+		}
+
+		catch (Exception x) {
+			System.err.println(x);
+			throw x;
 		}
 
 	}

@@ -7,10 +7,16 @@
 			<class name="com.algorithms.graph.test.TestGraph" />
 		</classes>
 	</test>
-	
+
 	<test name="Sorting">
-	        <classes>
-		        <class name="com.algorithms.sorting.test.TestSorting" />
+		<groups>
+			<run>
+				<include name="Integer-Sorting" />
+				<include name="Character-Sorting" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.algorithms.sorting.test.TestSorting" />
 		</classes>
 	</test>
 

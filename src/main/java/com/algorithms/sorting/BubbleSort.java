@@ -42,6 +42,9 @@ public class BubbleSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public void sortArray() {
 
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+
 		/**
 		 * Pass the array once. This time from the back so that the inner loop
 		 * works well.

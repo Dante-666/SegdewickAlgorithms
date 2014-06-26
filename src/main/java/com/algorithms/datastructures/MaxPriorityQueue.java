@@ -69,6 +69,9 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	 */
 
 	public void buildMaxHeap() {
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+		
 		for (int k = N / 2; k >= 1; k--) {
 			sink(k);
 		}
@@ -154,11 +157,28 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	 */
 
 	private boolean isLesser(int i, int j) {
-		if (this.array[i].compareTo(this.array[j]) == -1) {
+		this.arrayAccess+=2;
+		this.comparisions++;
+		if (this.array[i].compareTo(this.array[j]) < 0) {
 			return true;
 		} else
 			return false;
 	}
+
+	/**
+	 * If the key of i is greater than the key of j, return true.
+	 * 
+	 * @param i
+	 * @param j
+	 * @return
+	 */
+
+/*	private boolean isGreater(int i, int j) {
+		if (this.array[i].compareTo(this.array[j]) > 0) {
+			return true;
+		} else
+			return false;
+	}*/
 
 	/**
 	 * Swap array values.

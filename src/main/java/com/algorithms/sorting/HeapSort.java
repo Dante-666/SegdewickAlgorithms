@@ -31,9 +31,15 @@ public class HeapSort<T extends Comparable<T>> extends Sort<T> {
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
+		
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+		
 		heap.buildMaxHeap();
+		
 		for (int i = this.array.length - 1; i >= 0; i--) {
 			this.array[i] = this.heap.deleteLargest();
+			this.arrayAccess++;
 		}
 		this.arrayAccess = heap.getArrayAccessCount();
 		this.comparisions = heap.getComparisions();

@@ -41,6 +41,9 @@ public class SelectionSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public void sortArray() {
 
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+
 		int arrLength = this.array.length;
 		/**
 		 * This denotes the index of the minimum element. It is assumed that the
