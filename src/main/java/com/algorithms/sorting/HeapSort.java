@@ -24,7 +24,7 @@ public class HeapSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public HeapSort(T[] array) {
 		super(array);
-		this.heap = new MaxPriorityQueue<T>(array.clone());
+		this.heap = new MaxPriorityQueue<T>(array);
 	}
 
 	/**
@@ -43,5 +43,7 @@ public class HeapSort<T extends Comparable<T>> extends Sort<T> {
 		}
 		this.arrayAccess = heap.getArrayAccessCount();
 		this.comparisions = heap.getComparisions();
+		
+		heap.resetArray(array);
 	}
 }

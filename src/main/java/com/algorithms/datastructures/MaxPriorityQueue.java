@@ -29,7 +29,7 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	 * heap.
 	 */
 	private int N;
-	private final T[] array;
+	private T[] array;
 	private int arrayAccess;
 	private int comparisions;
 
@@ -57,12 +57,12 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 
 	}
 
-	/*
-	 * public MaxPriorityQueue(int seed) { this.array = new T[seed]; this.N = 0;
-	 * this.arrayAccess = 0; this.comparisions = 0;
-	 * 
-	 * }
-	 */
+	public void resetArray(T[] array) {
+		this.array = array;
+		this.N = this.array.length;
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+	}
 
 	/**
 	 * Build a heap by taking in an unsorted array using the bottoms up method.
@@ -71,7 +71,7 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	public void buildMaxHeap() {
 		this.arrayAccess = 0;
 		this.comparisions = 0;
-		
+
 		for (int k = N / 2; k >= 1; k--) {
 			sink(k);
 		}
@@ -157,7 +157,7 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	 */
 
 	private boolean isLesser(int i, int j) {
-		this.arrayAccess+=2;
+		this.arrayAccess += 2;
 		this.comparisions++;
 		if (this.array[i].compareTo(this.array[j]) < 0) {
 			return true;
@@ -173,12 +173,11 @@ public class MaxPriorityQueue<T extends Comparable<T>> {
 	 * @return
 	 */
 
-/*	private boolean isGreater(int i, int j) {
-		if (this.array[i].compareTo(this.array[j]) > 0) {
-			return true;
-		} else
-			return false;
-	}*/
+	/*
+	 * private boolean isGreater(int i, int j) { if
+	 * (this.array[i].compareTo(this.array[j]) > 0) { return true; } else return
+	 * false; }
+	 */
 
 	/**
 	 * Swap array values.
