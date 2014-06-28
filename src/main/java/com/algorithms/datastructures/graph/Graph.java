@@ -1,4 +1,4 @@
-package com.algorithms.graph;
+package com.algorithms.datastructures.graph;
 
 import java.io.BufferedReader;
 import java.io.IOException;

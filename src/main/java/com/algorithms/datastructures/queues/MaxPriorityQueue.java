@@ -1,4 +1,4 @@
-package com.algorithms.datastructures;
+package com.algorithms.datastructures.queues;
 
 /**
  * Order of growth :

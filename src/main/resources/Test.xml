@@ -8,6 +8,18 @@
 		</classes>
 	</test>
 
+	<test name="Trees">
+		<groups>
+			<run>
+				<include name="Two-Three Tree" />
+				<include name="BST" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.algorithms.trees.test.TestTree" />
+		</classes>
+	</test>
+
 	<test name="Sorting">
 		<groups>
 			<run>

@@ -6,7 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import com.algorithms.graph.Graph;
+import com.algorithms.datastructures.graph.Graph;
 
 import org.testng.Reporter;
 import org.testng.annotations.Test;

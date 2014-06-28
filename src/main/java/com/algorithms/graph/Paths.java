@@ -1,5 +1,7 @@
 package com.algorithms.graph;
 
+import com.algorithms.datastructures.graph.Graph;
+
 public class Paths {
 
 	/**

@@ -1,6 +1,6 @@
 package com.algorithms.sorting;
 
-import com.algorithms.datastructures.MaxPriorityQueue;
+import com.algorithms.datastructures.queues.MaxPriorityQueue;
 
 /**
  * The Heap sort algorithm works by using a data structure called as a Binary

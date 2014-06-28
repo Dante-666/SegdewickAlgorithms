@@ -3,6 +3,8 @@ package com.algorithms.graph;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import com.algorithms.datastructures.graph.Graph;
+
 public class BreadthFirstSearch {
 
 	private int[] edgeTo;

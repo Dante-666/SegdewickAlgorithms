@@ -1,4 +1,4 @@
-package com.algorithms.datastructures;
+package com.algorithms.datastructures.trees;
 
 public interface Tree<Key extends Comparable<Key>, Value> {
 
