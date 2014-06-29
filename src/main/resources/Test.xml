@@ -3,10 +3,10 @@
 <suite name="TestAlgorithms">
 	<test name="Queues">
 		<groups>
-			<run>			
+			<run>
 				<include name="MaxHeapIntegers" />
 				<include name="MinHeapIntegers" />
-				
+
 				<include name="MaxHeapCharacters" />
 				<include name="MinHeapCharacters" />
 			</run>
@@ -39,6 +39,7 @@
 			<run>
 				<include name="Integer-Sorting" />
 				<include name="Character-Sorting" />
+				<exclude name="Primitive Sort" />
 			</run>
 		</groups>
 		<classes>

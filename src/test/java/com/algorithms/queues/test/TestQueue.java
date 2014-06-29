@@ -23,7 +23,8 @@ public class TestQueue {
 	private long timeKeeper;
 
 	public TestQueue() {
-		seed = 10000;
+		
+		seed = 10000000;
 
 		shuffledArrayWithDuplicatesInt = ShuffleArray
 				.knuthShuffleWithDuplicatesInt(seed);
@@ -32,6 +33,8 @@ public class TestQueue {
 		testQueueInt = null;
 		testQueueChar = null;
 		timeKeeper = 0;
+
+		System.out.println("Running Queue Tests with Seed : " + seed);
 	}
 
 	@BeforeTest

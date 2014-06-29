@@ -15,6 +15,10 @@ import org.testng.annotations.Test;
 @Test(groups = "Test-Graphs")
 public class TestGraph {
 	
+	public TestGraph() {
+		System.out.println("Running Graph Tests...");
+	}
+	
 	//@BeforeTest(value = "Sorting")
 	public void testGraphInputStreamConstruction() {
 		// Path file = FileSystems.getDefault().getPath("/src/main/resources",

@@ -13,14 +13,22 @@ import org.testng.annotations.Test;
 
 public class TestTree {
 
+	private Integer[] randomArray;
+	private Character[] randomCharArray;
 	private BinarySearchTree<Integer, Character> bTree = new BinarySearchTree<>();
 	private TwoThreeTree<Integer, Character> b23Tree = new TwoThreeTree<>();
-	private int seed = 1000000;
-	private long timeKeeper = 0;
+	private int seed;
+	private long timeKeeper;
 
-	Integer[] randomArray = ShuffleArray.knuthShuffleNoDuplicatesInt(seed);
-	Character[] randomCharArray = ShuffleArray
-			.knuthShuffleWithDuplicatesChar(seed);
+	public TestTree() {
+
+		seed = 10000000;
+		randomArray = ShuffleArray.knuthShuffleNoDuplicatesInt(seed);
+		randomCharArray = ShuffleArray.knuthShuffleWithDuplicatesChar(seed);
+		timeKeeper = 0;
+
+		System.out.println("Running Tree Tests with Seed : " + seed);
+	}
 
 	@BeforeTest
 	@Test(groups = "BST")

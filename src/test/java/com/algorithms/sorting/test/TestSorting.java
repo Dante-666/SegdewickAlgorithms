@@ -26,7 +26,8 @@ public class TestSorting {
 	private long timeKeeper;
 
 	public TestSorting() {
-		seed = 10000;
+		
+		seed = 1000000;
 		shuffledArrayWithDuplicatesInt = ShuffleArray
 				.knuthShuffleWithDuplicatesInt(seed);
 		shuffledArrayWithDuplicatesChar = ShuffleArray
@@ -34,10 +35,12 @@ public class TestSorting {
 		testSortIntegers = null;
 		testSortCharacters = null;
 		timeKeeper = 0;
+		
+		System.out.println("Running Sorting Tests with Seed : " + seed);
 	}
 
 	@BeforeMethod
-	@Test(groups = { "Integer-Sorting" })
+	@Test(groups = { "Integer-Sorting", "Primitive Sort" })
 	public void testBubbleSortInt() {
 
 		Reporter.log("[ ** Bubble Sort ** ]\n");
@@ -78,7 +81,7 @@ public class TestSorting {
 
 	}
 
-	@Test(groups = { "Integer-Sorting" })
+	@Test(groups = { "Integer-Sorting", "Primitive Sort" })
 	public void testSelectionSortInt() {
 
 		Reporter.log("[ ** Selection Sort ** ]\n");
@@ -152,7 +155,7 @@ public class TestSorting {
 
 	}
 
-	@Test(groups = { "Integer-Sorting" })
+	@Test(groups = { "Integer-Sorting", "Primitive Sort" })
 	public void testInsertionSortInt() {
 
 		Reporter.log("[ ** Insertion Sort ** ]\n");
@@ -336,7 +339,7 @@ public class TestSorting {
 
 	}
 
-	@Test(groups = { "Character-Sorting" })
+	@Test(groups = { "Character-Sorting", "Primitive Sort" })
 	public void testBubbleSortChar() {
 
 		Reporter.log("[ ** Bubble Sort ** ]\n");
@@ -373,7 +376,7 @@ public class TestSorting {
 
 	}
 
-	@Test(groups = { "Character-Sorting" })
+	@Test(groups = { "Character-Sorting", "Primitive Sort" })
 	public void testSelectionSortChar() {
 
 		Reporter.log("[ ** Selection Sort ** ]\n");
@@ -447,7 +450,7 @@ public class TestSorting {
 
 	}
 
-	@Test(groups = { "Character-Sorting" })
+	@Test(groups = { "Character-Sorting", "Primitive Sort" })
 	public void testInsertionSortChar() {
 
 		Reporter.log("[ ** Insertion Sort ** ]\n");
