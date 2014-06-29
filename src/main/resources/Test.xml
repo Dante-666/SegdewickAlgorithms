@@ -1,6 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="TestAlgorithms">
+	<test name="Queues">
+		<groups>
+			<run>			
+				<include name="MaxHeapIntegers" />
+				<include name="MinHeapIntegers" />
+				
+				<include name="MaxHeapCharacters" />
+				<include name="MinHeapCharacters" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.algorithms.queues.test.TestQueue" />
+		</classes>
+	</test>
 
 	<test name="Graphs">
 		<classes>

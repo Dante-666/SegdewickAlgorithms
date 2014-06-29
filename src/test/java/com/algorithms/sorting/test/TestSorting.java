@@ -11,6 +11,7 @@ import com.algorithms.sorting.QuickSort;
 import com.algorithms.sorting.ShuffleArray;
 import com.algorithms.sorting.Sort;
 
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.Reporter;
 
@@ -21,18 +22,21 @@ public class TestSorting {
 	private final Character[] shuffledArrayWithDuplicatesChar;
 	private Sort<Integer> testSortIntegers;
 	private Sort<Character> testSortCharacters;
+	private int seed;
 	private long timeKeeper;
 
 	public TestSorting() {
+		seed = 10000;
 		shuffledArrayWithDuplicatesInt = ShuffleArray
-				.knuthShuffleWithDuplicatesInt(10000);
+				.knuthShuffleWithDuplicatesInt(seed);
 		shuffledArrayWithDuplicatesChar = ShuffleArray
-				.knuthShuffleWithDuplicatesChar(10000);
+				.knuthShuffleWithDuplicatesChar(seed);
 		testSortIntegers = null;
 		testSortCharacters = null;
 		timeKeeper = 0;
 	}
 
+	@BeforeMethod
 	@Test(groups = { "Integer-Sorting" })
 	public void testBubbleSortInt() {
 

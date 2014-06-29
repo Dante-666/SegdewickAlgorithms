@@ -2,6 +2,8 @@ package com.algorithms.sorting;
 
 import java.util.Arrays;
 
+import com.algorithms.exceptions.EmptyCollectionException;
+
 /**
  * This is the abstract class with basic methods and members required for any
  * type of Sorting.
@@ -23,6 +25,7 @@ public abstract class Sort<T extends Comparable<T>> {
 
 	/**
 	 * Implement this method to achieve different types of sorting.
+	 * @throws EmptyCollectionException 
 	 */
 	public abstract void sortArray();
 

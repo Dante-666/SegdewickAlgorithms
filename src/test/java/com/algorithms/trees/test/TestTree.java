@@ -26,7 +26,7 @@ public class TestTree {
 	@Test(groups = "BST")
 	public void testBSTInsertion() throws DuplicateKeyException {
 		Integer count = 0;
-		Reporter.log("Testing BST Insertion\n");
+		Reporter.log("[ ** BST Insertion ** ]\n");
 
 		try {
 			timeKeeper = System.currentTimeMillis();
@@ -65,7 +65,7 @@ public class TestTree {
 	@Test(groups = "Two-Three Tree")
 	public void test23TreeInsertion() throws DuplicateKeyException {
 		Integer count = 0;
-		Reporter.log("Testing 2-3 Tree Insertion\n");
+		Reporter.log("[ ** 2-3 Tree Insertion ** ]\n");
 
 		try {
 			timeKeeper = System.currentTimeMillis();
@@ -105,7 +105,7 @@ public class TestTree {
 
 		Integer count = 0;
 
-		Reporter.log("Testing BST Search\n");
+		Reporter.log("[ ** BST Search ** ]\n");
 
 		try {
 			timeKeeper = System.currentTimeMillis();
@@ -142,7 +142,7 @@ public class TestTree {
 
 		Integer count = 0;
 
-		Reporter.log("Testing 2-3 Tree Search\n");
+		Reporter.log("[ ** 2-3 Tree Search ** ]\n");
 
 		try {
 			timeKeeper = System.currentTimeMillis();

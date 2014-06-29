@@ -25,40 +25,19 @@ import com.algorithms.exceptions.EmptyCollectionException;
  * @author sinsi02
  * @version 1.1
  */
-public class MaxPriorityQueue<E extends Comparable<E>> extends
+public class MinPriorityQueue<E extends Comparable<E>> extends
 		AbstractPriorityQueue<E> implements Queue<E> {
 
-	/**
-	 * The only constructor that initializes the array which represents the
-	 * heap.
-	 * 
-	 * @param array
-	 *            The array to be sorted
-	 */
-	public MaxPriorityQueue(E[] array) {
+	public MinPriorityQueue(E[] array) {
 		super(array);
-
 	}
 
-	public MaxPriorityQueue(E[] array, boolean empty) {
+	public MinPriorityQueue(E[] array, boolean empty) {
 		super(array, empty);
 	}
 
 	/**
-	 * Build a heap by taking in an unsorted array using the bottoms up method.
-	 */
-
-	public void buildMaxHeap() {
-		this.arrayAccess = 0;
-		this.comparisions = 0;
-
-		for (int k = N / 2; k >= 1; k--) {
-			sink(k);
-		}
-	}
-
-	/**
-	 * In case the child somehow has a larger key than that of the parent, then
+	 * In case the child somehow has a smaller key than that of the parent, then
 	 * we replace the elements till the heap is restored. This is called a swim
 	 * operation since the element rather swims up. Swim should start at the
 	 * bottom.
@@ -70,10 +49,10 @@ public class MaxPriorityQueue<E extends Comparable<E>> extends
 	 */
 	public void swim(int k) {
 		/**
-		 * Checking for isLesser makes sure that the >= property of MaxHeap is
+		 * Checking for isGreater makes sure that the <= property of MinHeap is
 		 * satisfied.
 		 */
-		while (k > 1 && isLesser(k / 2, k)) {
+		while (k > 1 && isGreater(k / 2, k)) {
 			swapArrayValues(k / 2, k);
 			k = k / 2;
 			this.arrayAccess += 2;
@@ -96,9 +75,9 @@ public class MaxPriorityQueue<E extends Comparable<E>> extends
 		while (2 * k <= N) {
 			int j = 2 * k;
 
-			if (j < N && isLesser(j, j + 1))
+			if (j < N && isGreater(j, j + 1))
 				j++;
-			if (isLesser(j, k))
+			if (isGreater(j, k))
 				break;
 			swapArrayValues(j, k);
 			k = j;
@@ -127,27 +106,26 @@ public class MaxPriorityQueue<E extends Comparable<E>> extends
 	}
 
 	/**
-	 * Delete the largest value from the Heap. This removes the element from the
-	 * root which will be the largest while the heap is in order. Then replace
-	 * the last element from the list and sink it down to the appropriate place.
+	 * Delete the smallest value from the Heap. This removes the element from
+	 * the root which will be the smallest while the heap is in order. Then
+	 * replace the last element from the list and sink it down to the
+	 * appropriate place.
 	 * 
-	 * @return Element that was popped which is the largest too.
 	 * @throws EmptyCollectionException
 	 */
 	@Override
 	public E pop() throws EmptyCollectionException {
-
 		if (N == 0) {
 			throw new EmptyCollectionException();
 		}
 
-		E max = this.array[0];
+		E min = this.array[0];
 		this.array[0] = this.array[--this.N];
 		this.sink(1);
 		this.array[N] = null;
 
 		this.arrayAccess += 4;
-		return max;
+		return min;
 	}
 
 }
