@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class TestGraph {
 	
 	public TestGraph() {
-		System.out.println("Running Graph Tests...");
+		//System.out.println("Running Graph Tests...");
 	}
 	
 	//@BeforeTest(value = "Sorting")

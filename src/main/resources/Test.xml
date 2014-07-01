@@ -40,6 +40,7 @@
 				<include name="Integer-Sorting" />
 				<include name="Character-Sorting" />
 				<exclude name="Primitive Sort" />
+				<include name="Fast Sort" />
 			</run>
 		</groups>
 		<classes>

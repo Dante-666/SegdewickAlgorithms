@@ -25,7 +25,8 @@ public abstract class Sort<T extends Comparable<T>> {
 
 	/**
 	 * Implement this method to achieve different types of sorting.
-	 * @throws EmptyCollectionException 
+	 * 
+	 * @throws EmptyCollectionException
 	 */
 	public abstract void sortArray();
 
@@ -103,6 +104,26 @@ public abstract class Sort<T extends Comparable<T>> {
 			return true;
 		} else
 			return false;
+	}
+
+	public boolean isSorted() {
+		int length = this.array.length, i;
+		length--;
+
+		for (i = 0; i < length; i++) {
+			if (this.array[i].compareTo(this.array[i + 1]) < 0
+					|| this.array[i].equals(this.array[i + 1])) {
+				continue;
+			} else {
+				break;
+			}
+		}
+
+		if (i == length) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public String toString() {

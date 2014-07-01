@@ -30,6 +30,26 @@ public class RadixSort {
 		for (int i = 0; i < 10; i++)
 			queue[i] = new ArrayDeque<>();
 	}
+	
+	public boolean isSorted() {
+		int length = this.array.length, i;
+		length--;
+
+		for (i = 0; i < length; i++) {
+			if (this.array[i].compareTo(this.array[i + 1]) < 0
+					|| this.array[i].equals(this.array[i + 1])) {
+				continue;
+			} else {
+				break;
+			}
+		}
+
+		if (i == length) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	/**
 	 * The sorting method, sorts the private array.

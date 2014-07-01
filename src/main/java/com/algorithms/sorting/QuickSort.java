@@ -21,6 +21,8 @@ package com.algorithms.sorting;
  */
 public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 
+	private int limit;
+
 	/**
 	 * The only constructor that initializes the array.
 	 * 
@@ -29,12 +31,18 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public QuickSort(T[] array) {
 		super(array);
+		limit = (int) (this.array.length * 0.0001);
+		if (limit == 0)
+			limit++;
 	}
 
 	/**
 	 * The sorting method, sorts the private array.
 	 */
 	public void sortArray() {
+		this.arrayAccess = 0;
+		this.comparisions = 0;
+
 		this.quickSort(0, this.array.length - 1);
 	}
 
@@ -48,21 +56,49 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 	 */
 	public void quickSort(int left, int right) {
 		int pivot;
-
 		/**
 		 * Till the left and right positions cross over.
 		 */
-		if (left < right) {
-
-			this.arrayAccess = 0;
-			this.comparisions = 0;
-
+		if (right - left > limit) {
 			/**
 			 * The will part the array, more information is given below.
 			 */
 			pivot = this.partArray(left, right);
 			this.quickSort(left, pivot);
 			this.quickSort(pivot + 1, right);
+		} else {
+			/**
+			 * Pass the array times it's length.
+			 */
+			for (int i = left; i <= right; i++) {
+				/**
+				 * Pass the array from the "i"th position to the end of the
+				 * array just before the element 1. Now since we are comparing
+				 * "j" with "j-1", we don't have to take it till 0 as evident in
+				 * the below comments.
+				 */
+				for (int j = i; j > left; j--) {
+					/**
+					 * If the previous value is greater than the value at the
+					 * present index, then shift these two.
+					 * 
+					 * We have to adapt such procedure since arrays are
+					 * initialized as a block and if we try to find the
+					 * appropriate place for the element and shift the whole of
+					 * the array then, it would become a costly process.
+					 * 
+					 * Eventually, this constant swapping replicates the
+					 * original behavior and thus maintains "Stability" too.
+					 */
+					if (isLesser(j, j - 1)) {
+						this.swapArrayValues(j, j - 1);
+						this.arrayAccess += 2;
+						this.comparisions++;
+					} else
+						break;
+				}
+
+			}
 		}
 
 	}
@@ -94,6 +130,8 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 		 * first position, so that it is easier to manipulate the indices.
 		 */
 		int pivotIndex = (int) (Math.random() * (right - left) + left);
+
+		// int pivotIndex = (right + left) / 2;
 		// T pivotValue = this.array[pivotIndex];
 		this.arrayAccess++;
 
@@ -135,7 +173,6 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 				this.arrayAccess++;
 				this.comparisions++;
 			}
-
 			/**
 			 * After decrementing, just check if the indices have crossed. If
 			 * so, then break out.
@@ -143,10 +180,12 @@ public class QuickSort<T extends Comparable<T>> extends Sort<T> {
 			if (leftIndex >= rightIndex) {
 				break;
 			}
+
 			/**
 			 * Swap when the leftIndex holds a bigger value and the rightIndex
 			 * holds a smaller value relative to the pivot.
 			 */
+			// if (isLesser(rightIndex, leftIndex))
 			this.swapArrayValues(leftIndex, rightIndex);
 		}
 

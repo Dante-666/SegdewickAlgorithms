@@ -159,6 +159,7 @@ public class ShuffleArray {
 		}
 
 	}
+
 	public static void reverseArray(Character[] array) {
 
 		int i = 0;

@@ -24,7 +24,7 @@ public class TestQueue {
 
 	public TestQueue() {
 		
-		seed = 10000000;
+		seed = 1000000;
 
 		shuffledArrayWithDuplicatesInt = ShuffleArray
 				.knuthShuffleWithDuplicatesInt(seed);
@@ -34,7 +34,7 @@ public class TestQueue {
 		testQueueChar = null;
 		timeKeeper = 0;
 
-		System.out.println("Running Queue Tests with Seed : " + seed);
+		//System.out.println("Running Queue Tests with Seed : " + seed);
 	}
 
 	@BeforeTest
@@ -198,7 +198,7 @@ public class TestQueue {
 
 	@AfterGroups({ "MaxHeapCharacters" })
 	@Test(groups = { "MinHeapCharacters" })
-	public void testMinHeapCharPush() {
+	public void testMinHeapCharPushPop() {
 		Reporter.log("[ ** MinHeap Character Push ** ]\n");
 
 		testQueueChar = new MinPriorityQueue<>(new Character[seed], true);

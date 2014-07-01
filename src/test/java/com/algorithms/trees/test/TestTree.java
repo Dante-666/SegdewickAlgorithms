@@ -22,12 +22,12 @@ public class TestTree {
 
 	public TestTree() {
 
-		seed = 10000000;
+		seed = 1000000;
 		randomArray = ShuffleArray.knuthShuffleNoDuplicatesInt(seed);
 		randomCharArray = ShuffleArray.knuthShuffleWithDuplicatesChar(seed);
 		timeKeeper = 0;
 
-		System.out.println("Running Tree Tests with Seed : " + seed);
+		// System.out.println("Running Tree Tests with Seed : " + seed);
 	}
 
 	@BeforeTest
@@ -38,8 +38,8 @@ public class TestTree {
 
 		try {
 			timeKeeper = System.currentTimeMillis();
-			for (Integer temp : randomArray) {
-				bTree.put(temp, randomCharArray[temp]);
+			for (int i = 0; i < seed; i++) {
+				bTree.put(randomArray[i], randomCharArray[i]);
 			}
 
 			Reporter.log("Insert -- Passed : "
@@ -72,19 +72,23 @@ public class TestTree {
 	@BeforeTest
 	@Test(groups = "Two-Three Tree")
 	public void test23TreeInsertion() throws DuplicateKeyException {
-		Integer count = 0;
+		Integer count;
 		Reporter.log("[ ** 2-3 Tree Insertion ** ]\n");
 
 		try {
 			timeKeeper = System.currentTimeMillis();
 
-			for (Integer temp : randomArray) {
-				b23Tree.put(temp, randomCharArray[temp]);
+			for (int i = 0; i < seed; i++) {
+				// System.out.println(i);
+				b23Tree.put(randomArray[i], randomCharArray[i]);
 			}
+			// System.out.println("here");
 			Reporter.log("Insert -- Passed : "
 					+ (System.currentTimeMillis() - timeKeeper) + " ms\n");
 
 			timeKeeper = System.currentTimeMillis();
+			count = 0;
+
 			for (Integer i = 0; i < seed; i++) {
 				try {
 					b23Tree.put(i, 'r');
@@ -148,7 +152,7 @@ public class TestTree {
 	@Test(groups = "Two-Three Tree")
 	public void test23TreeSearch() throws KeyNotFoundException {
 
-		Integer count = 0;
+		Integer count;
 
 		Reporter.log("[ ** 2-3 Tree Search ** ]\n");
 
@@ -161,6 +165,8 @@ public class TestTree {
 					+ (System.currentTimeMillis() - timeKeeper) + " ms\n");
 
 			timeKeeper = System.currentTimeMillis();
+			count = 0;
+
 			for (Integer i = -seed; i < 0; i++) {
 				try {
 					b23Tree.search(i);
