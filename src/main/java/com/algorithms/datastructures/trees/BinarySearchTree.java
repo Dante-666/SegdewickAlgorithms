@@ -12,13 +12,62 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 		private Key key;
 		private Value value;
 		private Node left, right;
+		private int count;
 
-		public Node(Key key, Value value) {
+		public Node(Key key, Value value, int count) {
 			this.key = key;
 			this.value = value;
+			this.count = count;
 		}
 
 	}
+
+	public int size() {
+		return size(this.root);
+	}
+
+	private int size(Node node) {
+		if (node == null)
+			return 0;
+
+		return node.count;
+	}
+	
+	public void printTree() {
+		Node x = this.root;
+
+		printTree(x.right, true, "");
+		System.out.println(x.toString());
+		printTree(x.left, false, "");
+	}
+
+	private void printTree(Node node, boolean isRight, String indent) {
+
+		if (node == null) {
+			return;
+		}
+
+		printTree(node.right, true, indent
+				+ (isRight ? "        " : " |      "));
+
+		System.out.print(indent);
+
+		if (isRight) {
+			System.out.print(" /----- ");
+		} else {
+			System.out.print(" \\----- ");
+		}
+
+		System.out.println(node.toString());
+		printTree(node.left, false, indent
+				+ (isRight ? " |      " : "        "));
+	}
+
+	/*
+	 * public Node floor(Key key) {
+	 * 
+	 * }
+	 */
 
 	public void put(Key key, Value value) throws DuplicateKeyException {
 
@@ -28,7 +77,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 
 	private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
 		if (x == null)
-			return new Node(key, value);
+			return new Node(key, value, 1);
 
 		int cmp = key.compareTo(x.key);
 
@@ -40,6 +89,8 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> {
 
 		else
 			throw new DuplicateKeyException();
+
+		x.count = 1 + size(x.left) + size(x.right);
 
 		return x;
 

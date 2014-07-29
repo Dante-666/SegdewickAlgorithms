@@ -91,6 +91,7 @@ public abstract class AbstractPriorityQueue<E extends Comparable<E>> {
 	 */
 
 	public boolean isLesser(int i, int j) {
+		//E[] arrEs = new E[10];
 		assert i > 0 && j > 0;
 		this.arrayAccess += 2;
 		this.comparisions++;
