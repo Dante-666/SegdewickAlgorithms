@@ -27,6 +27,8 @@
 			<run>
 				<include name="Two-Three Tree" />
 				<include name="BST" />
+				<include name="AVL Tree" />
+				<include name="Red Black Tree" />
 			</run>
 		</groups>
 		<classes>
