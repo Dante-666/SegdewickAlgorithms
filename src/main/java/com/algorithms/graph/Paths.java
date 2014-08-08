@@ -12,7 +12,7 @@ public class Paths {
 	 * @param s
 	 *            Index of the source vertex
 	 */
-	public Paths(Graph G, int s) {
+	public Paths(Graph<?> G, int s) {
 		
 	}
 

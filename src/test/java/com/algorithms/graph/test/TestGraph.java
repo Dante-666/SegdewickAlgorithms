@@ -24,14 +24,14 @@ public class TestGraph {
 		// Path file = FileSystems.getDefault().getPath("/src/main/resources",
 		// "testGraph.txt"); //"testGraph.txt";
 
-		Graph testGraph;
+		Graph<String> testGraph;
 
 		Path file = Paths.get("src/main/resources/Graphs", "testGraph.txt");
 
 		try {
 			InputStream in = Files.newInputStream(file);
 
-			testGraph = new Graph(in);
+			testGraph = new Graph<String>(in);
 
 			Reporter.log(testGraph.toString());// .toString();
 

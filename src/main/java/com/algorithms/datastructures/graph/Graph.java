@@ -4,9 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 import org.apache.commons.collections4.Bag;
 import org.apache.commons.collections4.bag.HashBag;
+import org.apache.commons.collections4.map.HashedMap;
 
 /**
  * This is a local API for a basic graphs with which we can implement the
@@ -14,8 +16,7 @@ import org.apache.commons.collections4.bag.HashBag;
  * graph data in spite of the linked list and array representation since it is
  * the most favored one.
  * 
- * Currently, only Integers are supported but will extend this to support other
- * native objects.
+ * Native Vertices supported. Can improve upon this
  * 
  * Also this implements an undirected graph and thus has multiple edges. For the
  * sake of simplicity, the edges will be counted once.
@@ -26,14 +27,16 @@ import org.apache.commons.collections4.bag.HashBag;
  * algorithms. Pass the Graph to the routine and query it for information.
  * 
  * @author Dante
- * @version 1.0
+ * @version 2.0
  * 
  */
-public class Graph {
+public class Graph<Vertex> {
 
 	private final int V;
 	private final int E;
-	private Bag<Integer>[] adj;
+	private Map<Vertex, Bag<Vertex>> adjMap;
+
+	// private Bag<Vertex>[] adj;
 
 	/**
 	 * Constructs an empty graph with the number of vertices and edges passed
@@ -44,14 +47,16 @@ public class Graph {
 	 * @param E
 	 *            The number of Edges
 	 */
-	@SuppressWarnings("unchecked")
 	public Graph(int V, int E) {
 		this.V = V;
 		this.E = E;
-		adj = (Bag<Integer>[]) new HashBag[V];
-		for (int v = 0; v < V; v++) {
-			adj[v] = new HashBag<>();
-		}
+
+		adjMap = new HashedMap<Vertex, Bag<Vertex>>();
+
+		/*
+		 * adj = (Bag<Vertex>[]) new HashBag[V]; for (int v = 0; v < V; v++) {
+		 * adj[v] = new HashBag<>(); }
+		 */
 	}
 
 	/**
@@ -74,15 +79,22 @@ public class Graph {
 		line = reader.readLine();
 		this.E = Integer.parseInt(line);
 
-		adj = (Bag<Integer>[]) new HashBag[this.V];
-		for (int v = 0; v < V; v++) {
-			adj[v] = new HashBag<Integer>();
-		}
+		adjMap = new HashedMap<Vertex, Bag<Vertex>>();
+
+		/*
+		 * adj = (Bag<Vertex>[]) new HashBag[this.V]; for (int v = 0; v < V;
+		 * v++) { adj[v] = new HashBag<Vertex>(); }
+		 */
 
 		while ((line = reader.readLine()) != null) {
 			tempString = line.split(" ");
-			addEdge(Integer.parseInt(tempString[0]),
-					Integer.parseInt(tempString[1]));
+			if (!adjMap.containsKey((Vertex) tempString[0])) {
+				adjMap.put((Vertex) tempString[0], new HashBag<Vertex>());
+			}
+			if (!adjMap.containsKey((Vertex) tempString[1])) {
+				adjMap.put((Vertex) tempString[1], new HashBag<Vertex>());
+			}
+			addEdge((Vertex) tempString[0], (Vertex) tempString[1]);
 			// System.out.println(line);
 		}
 
@@ -96,9 +108,9 @@ public class Graph {
 	 * @param w
 	 *            The number of the second vertex.
 	 */
-	public void addEdge(int v, int w) {
-		adj[v].add(w);
-		adj[w].add(v);
+	public void addEdge(Vertex v, Vertex w) {
+		adjMap.get(v).add(w);
+		adjMap.get(w).add(v);
 	}
 
 	/**
@@ -108,8 +120,17 @@ public class Graph {
 	 *            The number of the vertex.
 	 * @return
 	 */
-	public Iterable<Integer> getAdjacentVertices(int v) {
-		return adj[v];
+	public Iterable<Vertex> getAdjacentVertices(Object v) {
+		return adjMap.get(v);
+	}
+	
+	/**
+	 * Returns the vertex list.
+	 * 
+	 * @return
+	 */
+	public Iterable<Vertex> getAllVertices(){
+		return adjMap.keySet();
 	}
 
 	/**
@@ -140,8 +161,8 @@ public class Graph {
 	 */
 	public String toString() {
 		String tempString = "";
-		for (int v = 0; v < this.V; v++) {
-			for (Integer w : this.getAdjacentVertices(v)) {
+		for (Vertex v : adjMap.keySet()) {
+			for (Vertex w : this.getAdjacentVertices(v)) {
 				tempString += v + "-" + w + "\n";
 			}
 		}
