@@ -37,6 +37,7 @@ public class DepthFirstSearch {
     public DepthFirstSearch(Digraph<?> G, Object v) {
 
         this.marked = new ListOrderedMap<>();
+
         for (Object x : G.getAllVertices()) {
             this.marked.put(x, false);
         }

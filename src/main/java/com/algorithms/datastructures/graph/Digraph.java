@@ -60,6 +60,7 @@ public class Digraph<Vertex> {
      */
     @SuppressWarnings("unchecked")
     public Digraph(InputStream in) throws IOException, NullPointerException {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String line;
         String[] tempString;
@@ -74,12 +75,14 @@ public class Digraph<Vertex> {
 
         while ((line = reader.readLine()) != null) {
             tempString = line.split(" ");
+            /*
             if (!adjMap.containsKey((Vertex)tempString[0])) {
                 adjMap.put((Vertex) tempString[0], new HashBag<Vertex>());
             }
             if (!adjMap.containsKey((Vertex)tempString[1])) {
                 adjMap.put((Vertex) tempString[1], new HashBag<Vertex>());
             }
+            */
             addEdge((Vertex) tempString[0], (Vertex) tempString[1]);
             // System.out.println(line);
         }
@@ -103,6 +106,12 @@ public class Digraph<Vertex> {
      *            The number of the second vertex.
      */
     public void addEdge(Vertex v, Vertex w) {
+        if (!adjMap.containsKey(v)) {
+            adjMap.put(v, new HashBag<Vertex>());
+        }
+        if (!adjMap.containsKey(w)) {
+            adjMap.put(w, new HashBag<Vertex>());
+        }
         adjMap.get(v).add(w);
     }
 
