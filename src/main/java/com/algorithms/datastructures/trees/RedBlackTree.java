@@ -1,194 +1,252 @@
 package com.algorithms.datastructures.trees;
 
 import com.algorithms.exceptions.DuplicateKeyException;
-import com.algorithms.exceptions.KeyNotFoundException;
 
 /**
  * Invariant:
- * 
+ * <p/>
  * No path from the root to the bottom contains two consecutive red links.
- * 
+ * <p/>
  * The number of black links on every such path is the same
- * 
+ * <p/>
  * Here we are using the LLRB, which shows close correspondence with the 2-3
  * Tree.
- * 
- * @author sinsi02
- * 
+ *
  * @param <Key>
  * @param <Value>
+ * @author sinsi02
  */
 
-public class RedBlackTree<Key extends Comparable<Key>, Value> {
+public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySearchTree<Key, Value> {
 
-	private Node root;
+    private Node root;
 
-	public class Node {
+/*
+    public class RBNode extends BinarySearchTree.Node{
 
-		private Key key;
-		private Value value;
-		private Node left, right;
-		private boolean color; // Color of the parent link
+        //private Key key;
+        //private Value value;
+        //private Node left, right;
+        private boolean color; // Color of the parent link
+        //private int count;
 
-		public Node(Key key, Value value) {
-			this.key = key;
-			this.value = value;
-			this.color = true;
-		}
+        public RBNode(Key key, Value value, int count) {
+            super(key, value, count);
+            this.color = true;
+            //this.count = count;
+        }
 
-		public String toString() {
-			return "[" + this.key.toString() + "/" + this.value.toString()
-					+ "/" + (this.color ? "Red" : "Black") + "]";
-		}
+*/
+/*        public String toString() {
+            return "[" + this.key.toString() + "/" + this.value.toString()
+                    + "/" + (this.color ? "Red" : "Black") + "]";
+        }*//*
 
-	}
 
-	public void printTree() {
-		Node x = this.root;
+    }
+*/
 
-		printTree(x.right, true, "");
-		System.out.println(x.toString());
-		printTree(x.left, false, "");
-	}
+    public class Node{
 
-	private void printTree(Node node, boolean isRight, String indent) {
+        private Key key;
+        private Value value;
+        private Node left, right;
+        private boolean color; // Color of the parent link
+        //private int count;
 
-		if (node == null) {
-			return;
-		}
+        public Node(Key key, Value value) {
+            this.key=key;
+            this.value=value;
+            this.color = true;
+        }
 
-		printTree(node.right, true, indent
-				+ (isRight ? "        " : " |      "));
+        public String toString() {
+            return "[" + this.key.toString() + "/" + this.value.toString()
+                    + "/" + (this.color ? "Red" : "Black") + "]";
+        }
 
-		System.out.print(indent);
+    }
 
-		if (isRight) {
-			System.out.print(" /----- ");
-		} else {
-			System.out.print(" \\----- ");
-		}
+    /*
+    public void printTree() {
+        if (root == null)
+            System.out.println("Tree is Empty");
+        else {
+            Node x = this.root;
 
-		System.out.println(node.toString());
-		printTree(node.left, false, indent
-				+ (isRight ? " |      " : "        "));
-	}
+            printTree(x.right, true, "");
+            System.out.println(x.toString());
+            printTree(x.left, false, "");
+        }
+    }
 
-	private boolean isRedNode(Node node) {
-		if (node == null)
-			return false;
-		else {
-			return node.color;
-		}
-	}
+    private void printTree(Node node, boolean isRight, String indent) {
 
-	private void flipColors(Node node) {
-		node.color = true;
-		node.left.color = false;
-		node.right.color = false;
-	}
+        if (node == null) {
+            return;
+        }
 
-	private Node rotateLeft(Node node) {
+        printTree(node.right, true, indent
+                + (isRight ? "        " : " |      "));
 
-		Node tempNode = node.right;
-		node.right = tempNode.left;
-		tempNode.left = node;
+        System.out.print(indent);
 
-		tempNode.color = node.color;
-		node.color = true;
+        if (isRight) {
+            System.out.print(" /----- ");
+        } else {
+            System.out.print(" \\----- ");
+        }
 
-		return tempNode;
-	}
+        System.out.println(node.toString());
+        printTree(node.left, false, indent
+                + (isRight ? " |      " : "        "));
+    }
+    */
 
-	private Node rotateRight(Node node) {
+    private boolean isRedNode(Node node) {
+        return node != null && node.color;
+    }
 
-		Node tempNode = node.left;
-		node.left = tempNode.right;
-		tempNode.right = node;
+    private void flipColors(Node node) {
+        node.color = true;
+        node.left.color = false;
+        node.right.color = false;
+    }
 
-		tempNode.color = node.color;
-		node.color = true;
+    private Node rotateLeft(Node node) {
 
-		return tempNode;
-	}
+        Node tempNode = node.right;
+        node.right = tempNode.left;
+        tempNode.left = node;
 
-	public void put(Key key, Value value) throws DuplicateKeyException {
+        tempNode.color = node.color;
+        node.color = true;
 
-		root = put(root, key, value);
-		this.root.color = false;
+        return tempNode;
+    }
 
-	}
+    private Node rotateRight(Node node) {
 
-	private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
-		if (x == null)
-			return new Node(key, value);
-		
-		if (isRedNode(x.right) && isRedNode(x.left))
-			flipColors(x);
+        Node tempNode = node.left;
+        node.left = tempNode.right;
+        tempNode.right = node;
 
-		int cmp = key.compareTo(x.key);
+        tempNode.color = node.color;
+        node.color = true;
 
-		if (cmp < 0)
-			x.left = put(x.left, key, value);
+        return tempNode;
+    }
 
-		else if (cmp > 0)
-			x.right = put(x.right, key, value);
+    @Override
+    public void put(Key key, Value value) throws DuplicateKeyException {
 
-		else
-			throw new DuplicateKeyException();
-		
-		if (isRedNode(x.right) && !isRedNode(x.left))
-			x = rotateLeft(x);
+        root = put(root, key, value);
+        this.root.color = false;
 
-		if (isRedNode(x.left) && isRedNode(x.left.left))
-			x = rotateRight(x);
+    }
 
-		return x;
+    private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
+        if (x == null)
+            return new Node(key, value);
 
-	}
+        if (isRedNode(x.right) && isRedNode(x.left))
+            flipColors(x);
 
-	public Value search(Key key) throws KeyNotFoundException {
-		Value value = search(key, this.root);
-		if (value == null) {
-			throw new KeyNotFoundException();
-		} else {
-			return value;
-		}
-	}
+        int cmp = key.compareTo(x.key);
 
-	private Value search(Key key, Node node) {
-		Node xNode = node;
+        if (cmp < 0)
+            x.left = put(x.left, key, value);
 
-		while (xNode != null) {
-			int cmp = key.compareTo(xNode.key);
+        else if (cmp > 0)
+            x.right = put(x.right, key, value);
 
-			if (cmp < 0)
-				xNode = xNode.left;
-			else if (cmp > 0)
-				xNode = xNode.right;
-			else
-				return xNode.value;
+        else
+            throw new DuplicateKeyException();
 
-		}
-		return null;
-	}
+        if (isRedNode(x.right) && !isRedNode(x.left))
+            x = rotateLeft(x);
 
-	public void delete(Key key) {
-		Node x = this.root;
+        if (isRedNode(x.left) && isRedNode(x.left.left))
+            x = rotateRight(x);
 
-		while (x != null) {
-			int cmp = key.compareTo(x.key);
+        return x;
 
-			if (cmp < 0)
-				x = x.left;
-			else if (cmp > 0)
-				x = x.right;
-			// else
-			// return x.value;
-		}
-	}
+    }
+
+    /*
+    @Override
+    public Value search(Key key) throws KeyNotFoundException {
+        Value value = search(key, this.root);
+        if (value == null) {
+            throw new KeyNotFoundException();
+        } else {
+            return value;
+        }
+    }
+
+    private Value search(Key key, Node node) {
+        Node xNode = node;
+
+        while (xNode != null) {
+            int cmp = key.compareTo(xNode.key);
+
+            if (cmp < 0)
+                xNode = xNode.left;
+            else if (cmp > 0)
+                xNode = xNode.right;
+            else
+                return xNode.value;
+
+        }
+        return null;
+    }
+    */
+
+    @Override
+    public void delete(Key key) {
+        Node x = this.root;
+        Node parent = x, temp;
+
+        temp = x;
+
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+
+            if (cmp < 0)
+                x = x.left;
+            else if (cmp > 0)
+                x = x.right;
+            else {
+                if (isLeaf(x)) {
+                    if (parent.right != null && parent.right.equals(x))
+                        parent.right = null;
+                    else if (parent.left != null && parent.left.equals(x))
+                        parent.left = null;
+                    else if (parent.equals(x))
+                        root = null;
+
+                }
+            }
+            parent = temp;
+        }
+    }
+
+    private Node fixUp(Node h) {
+        if (isRedNode(h.right))
+            h = rotateLeft(h);
+        if (isRedNode(h.left) && isRedNode(h.left.left))
+            h = rotateRight(h);
+        if (isRedNode(h.left) && isRedNode(h.right))
+            flipColors(h);
+        return h;
+    }
+
+    private boolean isLeaf(Node node) {
+        return node.left == null && node.right == null;
+    }
 
 	/*
-	 * public Iterable<Key> iterator() {
+     * public Iterable<Key> iterator() {
 	 * 
 	 * }
 	 */

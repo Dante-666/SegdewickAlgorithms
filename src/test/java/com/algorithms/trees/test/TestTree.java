@@ -5,6 +5,7 @@ import com.algorithms.datastructures.trees.BinarySearchTree;
 import com.algorithms.datastructures.trees.RedBlackTree;
 import com.algorithms.datastructures.trees.TwoThreeTree;
 import com.algorithms.exceptions.DuplicateKeyException;
+import com.algorithms.exceptions.EmptyCollectionException;
 import com.algorithms.exceptions.KeyNotFoundException;
 import com.algorithms.sorting.ShuffleArray;
 
@@ -201,7 +202,7 @@ public class TestTree {
 
 	@AfterTest
 	@Test(groups = "BST")
-	public void testBSTSearch() throws KeyNotFoundException {
+	public void testBSTSearch() throws KeyNotFoundException, EmptyCollectionException {
 
 		Integer count = 0;
 
@@ -317,7 +318,7 @@ public class TestTree {
 
 	@AfterTest
 	@Test(groups = "Red Black Tree")
-	public void testRedBlackTreeSearch() throws KeyNotFoundException {
+	public void testRedBlackTreeSearch() throws KeyNotFoundException, EmptyCollectionException {
 
 		Integer count;
 
