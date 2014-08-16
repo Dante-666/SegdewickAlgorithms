@@ -7,18 +7,16 @@ import com.algorithms.exceptions.KeyNotFoundException;
 public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tree<Key, Value> {
 
     private Node root;
+    
+    protected class Node {
 
-    public class Node {
+    	private Key key;
+    	private Value value;
+    	private Node left, right;
 
-        private Key key;
-        private Value value;
-        private Node left, right;
-        private int count;
-
-        public Node(Key key, Value value, int count) {
+        public Node(Key key, Value value) {
             this.key = key;
             this.value = value;
-            this.count = count;
         }
 
         public String toString() {
@@ -27,20 +25,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
 
     }
 
-    public int size() {
-        return size(this.root);
-    }
-
-    private int size(Node node) {
-        if (node == null)
-            return 0;
-
-        return node.count;
-    }
-
     @Override
     public void printTree() throws EmptyCollectionException {
-        if (isTreeEmpty()) throw new EmptyCollectionException();
+        if (treeIsEmpty()) throw new EmptyCollectionException();
 
         Node x = this.root;
 
@@ -72,12 +59,6 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
                 + (isRight ? " |      " : "        "));
     }
 
-	/*
-     * public Node floor(Key key) {
-	 * 
-	 * }
-	 */
-
     @Override
     public void put(Key key, Value value) throws DuplicateKeyException {
 
@@ -87,7 +68,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
 
     private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
         if (x == null)
-            return new Node(key, value, 1);
+            return new Node(key, value);
 
         int cmp = key.compareTo(x.key);
 
@@ -100,15 +81,13 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
         else
             throw new DuplicateKeyException();
 
-        x.count = 1 + size(x.left) + size(x.right);
-
         return x;
 
     }
 
     @Override
     public Value search(Key key) throws KeyNotFoundException, EmptyCollectionException {
-        if (isTreeEmpty()) throw new EmptyCollectionException();
+        if (treeIsEmpty()) throw new EmptyCollectionException();
         return search(key, this.root);
     }
 
@@ -131,7 +110,8 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
 
     @Override
     public void delete(Key key) throws KeyNotFoundException, EmptyCollectionException {
-        if (isTreeEmpty()) throw new EmptyCollectionException();
+    	
+        if (treeIsEmpty()) throw new EmptyCollectionException();
 
         Node x = this.root;
         Node parent = x, temp;
@@ -197,9 +177,9 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
 
     @Override
     public void deleteMax() throws EmptyCollectionException, KeyNotFoundException {
-        if (isTreeEmpty()) throw new EmptyCollectionException();
+        if (treeIsEmpty()) throw new EmptyCollectionException();
 
-        Node x = root;//, temp;
+        Node x = root;
 
         while (x.right != null) x = x.right;
 
@@ -208,7 +188,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
 
     @Override
     public void deleteMin() throws EmptyCollectionException, KeyNotFoundException {
-        if (isTreeEmpty()) throw new EmptyCollectionException();
+        if (treeIsEmpty()) throw new EmptyCollectionException();
 
         Node x = root;
 
@@ -223,7 +203,7 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tre
     }
 
     @Override
-    public boolean isTreeEmpty() {
+    public boolean treeIsEmpty() {
         return root == null;
     }
 

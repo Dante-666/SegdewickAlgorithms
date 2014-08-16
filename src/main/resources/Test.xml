@@ -25,10 +25,12 @@
 	<test name="Trees">
 		<groups>
 			<run>
-				<exclude name="Two-Three Tree" />
-				<exclude name="BST" />
-				<exclude name="AVL Tree" />
-				<exclude name="Red Black Tree" />
+				<include name="Two-Three Tree" />
+				<include name="BST" />
+				<include name="AVL Tree" />
+				<include name="Red Black Tree" />
+				<include name="Random BST" />
+				<include name="Deletion"></include>
 			</run>
 		</groups>
 		<classes>

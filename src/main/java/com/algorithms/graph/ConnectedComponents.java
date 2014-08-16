@@ -55,7 +55,6 @@ public class ConnectedComponents {
         return this.initId;
     }
 
-    @SuppressWarnings("unused")
     public int componentId(Object v) {
         return this.id.get(v);
     }

@@ -1,6 +1,7 @@
 package com.algorithms.datastructures.trees;
 
 import com.algorithms.exceptions.DuplicateKeyException;
+import com.algorithms.exceptions.KeyNotFoundException;
 
 /**
  * Invariant:
@@ -21,38 +22,12 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
 
     private Node root;
 
-/*
-    public class RBNode extends BinarySearchTree.Node{
-
-        //private Key key;
-        //private Value value;
-        //private Node left, right;
-        private boolean color; // Color of the parent link
-        //private int count;
-
-        public RBNode(Key key, Value value, int count) {
-            super(key, value, count);
-            this.color = true;
-            //this.count = count;
-        }
-
-*/
-/*        public String toString() {
-            return "[" + this.key.toString() + "/" + this.value.toString()
-                    + "/" + (this.color ? "Red" : "Black") + "]";
-        }*//*
-
-
-    }
-*/
-
     public class Node{
 
         private Key key;
         private Value value;
         private Node left, right;
         private boolean color; // Color of the parent link
-        //private int count;
 
         public Node(Key key, Value value) {
             this.key=key;
@@ -67,7 +42,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
 
     }
 
-    /*
+    
     public void printTree() {
         if (root == null)
             System.out.println("Tree is Empty");
@@ -101,7 +76,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
         printTree(node.left, false, indent
                 + (isRight ? " |      " : "        "));
     }
-    */
+    
 
     private boolean isRedNode(Node node) {
         return node != null && node.color;
@@ -173,7 +148,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
 
     }
 
-    /*
+    
     @Override
     public Value search(Key key) throws KeyNotFoundException {
         Value value = search(key, this.root);
@@ -200,8 +175,9 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
         }
         return null;
     }
-    */
+    
 
+    //TODO : Implement this
     @Override
     public void delete(Key key) {
         Node x = this.root;
@@ -231,7 +207,7 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
         }
     }
 
-    private Node fixUp(Node h) {
+	private Node fixUp(Node h) {
         if (isRedNode(h.right))
             h = rotateLeft(h);
         if (isRedNode(h.left) && isRedNode(h.left.left))
@@ -244,6 +220,8 @@ public class RedBlackTree<Key extends Comparable<Key>, Value> extends BinarySear
     private boolean isLeaf(Node node) {
         return node.left == null && node.right == null;
     }
+
+    //TODO : Implement this
 
 	/*
      * public Iterable<Key> iterator() {

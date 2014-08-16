@@ -20,7 +20,7 @@ public interface Tree<Key extends Comparable<Key>, Value> {
 
     public void traverse();
 
-    public boolean isTreeEmpty();
+    public boolean treeIsEmpty();
 
 	/*
      * public void traversePreOrder();

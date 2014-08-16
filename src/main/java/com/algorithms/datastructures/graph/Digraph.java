@@ -40,7 +40,7 @@ public class Digraph<Vertex> {
      * @param E
      *            The number of Edges
      */
-    @SuppressWarnings("unused")
+    
     public Digraph(int V, int E) {
         this.V = V;
         this.E = E;

@@ -15,20 +15,20 @@ import java.util.Map;
  * algorithms. It internally uses the Adjacency-list Representation to store
  * graph data in spite of the linked list and array representation since it is
  * the most favored one.
- *
+ * 
  * Native Vertices supported. Can improve upon this
- *
+ * 
  * Also this implements an undirected graph and thus has multiple edges. For the
  * sake of simplicity, the edges will be counted once.
- *
+ * 
  * Also the graph can be initialized only once with the current settings.
- *
+ * 
  * Design Pattern : Decouple the Graph datatype from the Graph Processing
  * algorithms. Pass the Graph to the routine and query it for information.
- *
+ * 
  * @author Dante
  * @version 2.0
- *
+ * 
  */
 public class Graph<Vertex> {
 
@@ -41,13 +41,13 @@ public class Graph<Vertex> {
 	/**
 	 * Constructs an empty graph with the number of vertices and edges passed
 	 * in.
-	 *
+	 * 
 	 * @param V
 	 *            The number of Vertices
 	 * @param E
 	 *            The number of Edges
 	 */
-    @SuppressWarnings("unused")
+
 	public Graph(int V, int E) {
 		this.V = V;
 		this.E = E;
@@ -59,11 +59,12 @@ public class Graph<Vertex> {
 	/**
 	 * Constructs a graph from an Input stream like a file. The file should have
 	 * data arranged in this format given below.
-	 *
+	 * 
 	 * <no. of vertices> \n <no. of edges> \n <relationship>
-	 *
-	 * @param in The inputstream from which the graph will be constructed based
-     *           on the relationship defined in the graph.
+	 * 
+	 * @param in
+	 *            The inputstream from which the graph will be constructed based
+	 *            on the relationship defined in the graph.
 	 */
 	@SuppressWarnings("unchecked")
 	public Graph(InputStream in) throws IOException, NullPointerException {
@@ -81,10 +82,10 @@ public class Graph<Vertex> {
 
 		while ((line = reader.readLine()) != null) {
 			tempString = line.split(" ");
-			if (!adjMap.containsKey((Vertex)tempString[0])) {
+			if (!adjMap.containsKey((Vertex) tempString[0])) {
 				adjMap.put((Vertex) tempString[0], new HashBag<Vertex>());
 			}
-			if (!adjMap.containsKey((Vertex)tempString[1])) {
+			if (!adjMap.containsKey((Vertex) tempString[1])) {
 				adjMap.put((Vertex) tempString[1], new HashBag<Vertex>());
 			}
 			addEdge((Vertex) tempString[0], (Vertex) tempString[1]);
@@ -95,7 +96,7 @@ public class Graph<Vertex> {
 
 	/**
 	 * Add an edge between the vertices v-w.
-	 *
+	 * 
 	 * @param v
 	 *            The number of the first vertex.
 	 * @param w
@@ -108,7 +109,7 @@ public class Graph<Vertex> {
 
 	/**
 	 * Returns vertices adjacent to vertex v.
-	 *
+	 * 
 	 * @param v
 	 *            The number of the vertex.
 	 * @return The adjacent vertices list in an iterator.
@@ -119,10 +120,10 @@ public class Graph<Vertex> {
 
 	/**
 	 * Returns the vertex list.
-	 *
+	 * 
 	 * @return The entire Vertex list.
 	 */
-	public Iterable<Vertex> getAllVertices(){
+	public Iterable<Vertex> getAllVertices() {
 		return adjMap.keySet();
 	}
 
@@ -143,9 +144,9 @@ public class Graph<Vertex> {
 	/**
 	 * Overrides the toString method to return a string representation of the
 	 * graph.
-	 *
+	 * 
 	 * Shows double edges too.
-	 *
+	 * 
 	 * @return String representation of the graph.
 	 */
 	public String toString() {
