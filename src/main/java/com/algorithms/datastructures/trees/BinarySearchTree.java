@@ -1,220 +1,313 @@
 package com.algorithms.datastructures.trees;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
 import com.algorithms.exceptions.DuplicateKeyException;
 import com.algorithms.exceptions.EmptyCollectionException;
 import com.algorithms.exceptions.KeyNotFoundException;
 
-public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Tree<Key, Value> {
+public class BinarySearchTree<Key extends Comparable<Key>, Value> implements
+		Tree<Key, Value> {
 
-    private Node root;
-    
-    protected class Node {
+	private Node root;
 
-    	private Key key;
-    	private Value value;
-    	private Node left, right;
+	protected class Node {
 
-        public Node(Key key, Value value) {
-            this.key = key;
-            this.value = value;
-        }
+		private Key key;
+		private Value value;
+		private Node left, right;
 
-        public String toString() {
-            return "[" + this.key.toString() + "/" + this.value.toString() + "]";
-        }
+		public Node(Key key, Value value) {
+			this.key = key;
+			this.value = value;
+		}
 
-    }
+		public String toString() {
+			return "[" + this.key.toString() + "/" + this.value.toString()
+					+ "]";
+		}
 
-    @Override
-    public void printTree() throws EmptyCollectionException {
-        if (treeIsEmpty()) throw new EmptyCollectionException();
+	}
 
-        Node x = this.root;
+	@Override
+	public void printTree() throws EmptyCollectionException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
 
-        printTree(x.right, true, "");
-        System.out.println(x.toString());
-        printTree(x.left, false, "");
+		Node x = this.root;
 
-    }
+		printTree(x.right, true, "");
+		System.out.println(x.toString());
+		printTree(x.left, false, "");
 
-    private void printTree(Node node, boolean isRight, String indent) {
+	}
 
-        if (node == null) {
-            return;
-        }
+	private void printTree(Node node, boolean isRight, String indent) {
 
-        printTree(node.right, true, indent
-                + (isRight ? "        " : " |      "));
+		if (node == null) {
+			return;
+		}
 
-        System.out.print(indent);
+		printTree(node.right, true, indent
+				+ (isRight ? "        " : " |      "));
 
-        if (isRight) {
-            System.out.print(" /----- ");
-        } else {
-            System.out.print(" \\----- ");
-        }
+		System.out.print(indent);
 
-        System.out.println(node.toString());
-        printTree(node.left, false, indent
-                + (isRight ? " |      " : "        "));
-    }
+		if (isRight) {
+			System.out.print(" /----- ");
+		} else {
+			System.out.print(" \\----- ");
+		}
 
-    @Override
-    public void put(Key key, Value value) throws DuplicateKeyException {
+		System.out.println(node.toString());
+		printTree(node.left, false, indent
+				+ (isRight ? " |      " : "        "));
+	}
 
-        root = put(root, key, value);
+	@Override
+	public void put(Key key, Value value) throws DuplicateKeyException {
 
-    }
+		root = put(root, key, value);
 
-    private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
-        if (x == null)
-            return new Node(key, value);
+	}
 
-        int cmp = key.compareTo(x.key);
+	private Node put(Node x, Key key, Value value) throws DuplicateKeyException {
+		if (x == null)
+			return new Node(key, value);
 
-        if (cmp < 0)
-            x.left = put(x.left, key, value);
+		int cmp = key.compareTo(x.key);
 
-        else if (cmp > 0)
-            x.right = put(x.right, key, value);
+		if (cmp < 0)
+			x.left = put(x.left, key, value);
 
-        else
-            throw new DuplicateKeyException();
+		else if (cmp > 0)
+			x.right = put(x.right, key, value);
 
-        return x;
+		else
+			throw new DuplicateKeyException();
 
-    }
+		return x;
 
-    @Override
-    public Value search(Key key) throws KeyNotFoundException, EmptyCollectionException {
-        if (treeIsEmpty()) throw new EmptyCollectionException();
-        return search(key, this.root);
-    }
+	}
 
-    private Value search(Key key, Node node) throws KeyNotFoundException {
-        Node xNode = node;
+	@Override
+	public Value search(Key key) throws KeyNotFoundException,
+			EmptyCollectionException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
+		return search(key, this.root);
+	}
 
-        while (xNode != null) {
-            int cmp = key.compareTo(xNode.key);
+	private Value search(Key key, Node node) throws KeyNotFoundException {
+		Node xNode = node;
 
-            if (cmp < 0)
-                xNode = xNode.left;
-            else if (cmp > 0)
-                xNode = xNode.right;
-            else
-                return xNode.value;
+		while (xNode != null) {
+			int cmp = key.compareTo(xNode.key);
 
-        }
-        throw new KeyNotFoundException();
-    }
+			if (cmp < 0)
+				xNode = xNode.left;
+			else if (cmp > 0)
+				xNode = xNode.right;
+			else
+				return xNode.value;
 
-    @Override
-    public void delete(Key key) throws KeyNotFoundException, EmptyCollectionException {
-    	
-        if (treeIsEmpty()) throw new EmptyCollectionException();
+		}
+		throw new KeyNotFoundException();
+	}
 
-        Node x = this.root;
-        Node parent = x, temp;
+	@Override
+	public void delete(Key key) throws KeyNotFoundException,
+			EmptyCollectionException {
 
-        while (x != null) {
-            int cmp = key.compareTo(x.key);
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
 
-            temp = x;
+		Node x = this.root;
+		Node parent = x, temp;
 
-            if (cmp < 0)
-                x = x.left;
-            else if (cmp > 0)
-                x = x.right;
-            else {
-                if (isLeaf(x)) {
-                    if (parent.right != null && parent.right.equals(x))
-                        parent.right = null;
-                    else if (parent.left != null && parent.left.equals(x))
-                        parent.left = null;
-                    else if (parent.equals(x))
-                        root = null;
+		while (x != null) {
+			int cmp = key.compareTo(x.key);
 
-                } else if (x.left == null) {
-                    x.key = x.right.key;
-                    x.value = x.right.value;
+			temp = x;
 
-                    x.left = x.right.left;
-                    x.right = x.right.right;
+			if (cmp < 0)
+				x = x.left;
+			else if (cmp > 0)
+				x = x.right;
+			else {
+				if (isLeaf(x)) {
+					if (parent.right != null && parent.right.equals(x))
+						parent.right = null;
+					else if (parent.left != null && parent.left.equals(x))
+						parent.left = null;
+					else if (parent.equals(x))
+						root = null;
 
-                } else if (x.right == null) {
-                    x.key = x.left.key;
-                    x.value = x.left.value;
+				} else if (x.left == null) {
+					x.key = x.right.key;
+					x.value = x.right.value;
 
-                    x.right = x.left.right;
-                    x.left = x.left.left;
+					x.left = x.right.left;
+					x.right = x.right.right;
 
-                } else {
-                    System.out.println(temp.toString());
+				} else if (x.right == null) {
+					x.key = x.left.key;
+					x.value = x.left.value;
 
-                    temp = temp.left;
-                    parent = x;
+					x.right = x.left.right;
+					x.left = x.left.left;
 
-                    while (temp.right != null) {
-                        temp = temp.right;
-                        if (parent.equals(x)) parent = x.left;
-                        else parent = parent.right;
-                    }
+				} else {
+					System.out.println(temp.toString());
 
-                    x.key = temp.key;
-                    x.value = temp.value;
+					temp = temp.left;
+					parent = x;
 
-                    if (parent.equals(x)) parent.left = null;
-                    else parent.right = null;
+					while (temp.right != null) {
+						temp = temp.right;
+						if (parent.equals(x))
+							parent = x.left;
+						else
+							parent = parent.right;
+					}
 
-                }
+					x.key = temp.key;
+					x.value = temp.value;
 
-                return;
-            }
-            parent = temp;
-        }
-        throw new KeyNotFoundException();
-    }
+					if (parent.equals(x))
+						parent.left = null;
+					else
+						parent.right = null;
 
-    @Override
-    public void deleteMax() throws EmptyCollectionException, KeyNotFoundException {
-        if (treeIsEmpty()) throw new EmptyCollectionException();
+				}
 
-        Node x = root;
+				return;
+			}
+			parent = temp;
+		}
+		throw new KeyNotFoundException();
+	}
 
-        while (x.right != null) x = x.right;
+	@Override
+	public void deleteMax() throws EmptyCollectionException,
+			KeyNotFoundException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
 
-        delete(x.key);
-    }
+		Node x = root;
 
-    @Override
-    public void deleteMin() throws EmptyCollectionException, KeyNotFoundException {
-        if (treeIsEmpty()) throw new EmptyCollectionException();
+		while (x.right != null)
+			x = x.right;
 
-        Node x = root;
+		delete(x.key);
+	}
 
-        while (x.left != null) x = x.left;
+	@Override
+	public void deleteMin() throws EmptyCollectionException,
+			KeyNotFoundException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
 
-        delete(x.key);
-    }
+		Node x = root;
 
-    @Override
-    public void traverse() {
+		while (x.left != null)
+			x = x.left;
 
-    }
+		delete(x.key);
+	}
 
-    @Override
-    public boolean treeIsEmpty() {
-        return root == null;
-    }
+	@Override
+	public void traverse() {
 
-    public boolean isLeaf(Node node) {
-        return node.left == null && node.right == null;
-    }
+	}
 
-	/*
-     * public Iterable<Key> iterator() {
-	 * 
-	 * }
-	 */
+	@Override
+	public boolean treeIsEmpty() {
+		return root == null;
+	}
+
+	public boolean isLeaf(Node node) {
+		return node.left == null && node.right == null;
+	}
+
+	public Iterator<Key> inOrder() {
+
+		List<Key> inOrderList = new LinkedList<>();
+
+		inOrder(root, inOrderList);
+
+		return inOrderList.iterator();
+
+	}
+
+	public Iterator<Key> postOrder() {
+
+		List<Key> postOrderList = new LinkedList<>();
+
+		postOrder(root, postOrderList);
+
+		return postOrderList.iterator();
+
+	}
+	
+	public Iterator<Key> preOrder() {
+
+		return new PreOrder();
+
+	}
+
+	private void inOrder(Node node, List<Key> inOrderList) {
+
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrderList.add(node.key);
+		inOrder(node.right, inOrderList);
+
+	}
+
+	private void postOrder(Node node, List<Key> inOrderList) {
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrder(node.right, inOrderList);
+		inOrderList.add(node.key);
+	}
+	
+	private class PreOrder implements Iterator<Key> {
+
+		Stack<Node> stack = new Stack<>();
+
+		public PreOrder() {
+			if (root != null)
+				stack.push(root);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+
+		@Override
+		public Key next() {
+			if (!hasNext())
+				throw new NoSuchElementException();
+			Node node = stack.pop();
+			if (node.right != null)
+				stack.push(node.right);
+			if (node.left != null)
+				stack.push(node.left);
+			return node.key;
+		}
+
+		@Override
+		public void remove() {
+			// Do Nothing
+		}
+	}
 
 }

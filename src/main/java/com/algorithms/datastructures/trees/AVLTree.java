@@ -1,9 +1,17 @@
 package com.algorithms.datastructures.trees;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Stack;
+
 import com.algorithms.exceptions.DuplicateKeyException;
+import com.algorithms.exceptions.EmptyCollectionException;
 import com.algorithms.exceptions.KeyNotFoundException;
 
-public class AVLTree<Key extends Comparable<Key>, Value> {
+public class AVLTree<Key extends Comparable<Key>, Value> implements
+		Tree<Key, Value> {
 
 	private Node root;
 
@@ -37,7 +45,10 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 		return node.height;
 	}
 
-	public void printTree() {
+	public void printTree() throws EmptyCollectionException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
+
 		Node x = this.root;
 
 		printTree(x.right, true, "");
@@ -123,8 +134,8 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 		y.right = x;
 
 		x.height = 1 + Math.max(height(x.left), height(x.right));
-		
-		//System.out.println("RotateRight");
+
+		// System.out.println("RotateRight");
 
 		return y;
 
@@ -138,8 +149,8 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 		y.left = x;
 
 		x.height = 1 + Math.max(height(x.left), height(x.right));
-		
-		//System.out.println("RotateLeft");
+
+		// System.out.println("RotateLeft");
 
 		return y;
 	}
@@ -157,7 +168,7 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 		y.height--;
 		z.height++;
 		// x.height = height(x.right) + 1;
-		//System.out.print("RotateLeft-");
+		// System.out.print("RotateLeft-");
 
 		return rotateRight(x);
 
@@ -175,7 +186,7 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 		y.height--;
 		z.height++;
 		// x.height = 1 + Math.max(height(x.left), height(x.right));
-		//System.out.print("RotateRight-");
+		// System.out.print("RotateRight-");
 
 		return rotateLeft(x);
 	}
@@ -220,6 +231,108 @@ public class AVLTree<Key extends Comparable<Key>, Value> {
 			// return x.value;
 		}
 	}
+
+	@Override
+	public void deleteMax() throws EmptyCollectionException,
+			KeyNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteMin() throws EmptyCollectionException,
+			KeyNotFoundException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void traverse() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean treeIsEmpty() {
+		return root == null;
+	}
+	
+	public Iterator<Key> inOrder() {
+
+		List<Key> inOrderList = new LinkedList<>();
+
+		inOrder(root, inOrderList);
+
+		return inOrderList.iterator();
+
+	}
+
+	public Iterator<Key> postOrder() {
+
+		List<Key> postOrderList = new LinkedList<>();
+
+		postOrder(root, postOrderList);
+
+		return postOrderList.iterator();
+
+	}
+	
+	public Iterator<Key> preOrder() {
+
+		return new PreOrder();
+
+	}
+
+	private void inOrder(Node node, List<Key> inOrderList) {
+
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrderList.add(node.key);
+		inOrder(node.right, inOrderList);
+
+	}
+
+	private void postOrder(Node node, List<Key> inOrderList) {
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrder(node.right, inOrderList);
+		inOrderList.add(node.key);
+	}
+	
+	private class PreOrder implements Iterator<Key> {
+
+		Stack<Node> stack = new Stack<>();
+
+		public PreOrder() {
+			if (root != null)
+				stack.push(root);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+
+		@Override
+		public Key next() {
+			if (!hasNext())
+				throw new NoSuchElementException();
+			Node node = stack.pop();
+			if (node.right != null)
+				stack.push(node.right);
+			if (node.left != null)
+				stack.push(node.left);
+			return node.key;
+		}
+
+		@Override
+		public void remove() {
+			// Do Nothing
+		}
+	}
+
 
 	/*
 	 * public Iterable<Key> iterator() {

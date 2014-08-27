@@ -26,11 +26,11 @@
 		<groups>
 			<run>
 				<include name="Two-Three Tree" />
-				<include name="BST" />
+				<exclude name="BST" />
 				<include name="AVL Tree" />
 				<include name="Red Black Tree" />
-				<include name="Random BST" />
-				<include name="Deletion"></include>
+				<exclude name="Random BST" />
+				<exclude name="Deletion" />
 			</run>
 		</groups>
 		<classes>

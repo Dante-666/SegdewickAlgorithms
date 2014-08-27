@@ -1,19 +1,25 @@
 package com.algorithms.datastructures.trees;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
+import java.util.Stack;
 
 import com.algorithms.exceptions.DuplicateKeyException;
 import com.algorithms.exceptions.EmptyCollectionException;
 import com.algorithms.exceptions.KeyNotFoundException;
 
-public class RandomBST<Key extends Comparable<Key>, Value> extends
-		BinarySearchTree<Key, Value> {
+public class RandomBST<Key extends Comparable<Key>, Value> implements
+		Tree<Key, Value> {
 
 	private Node root;
+
 	private long seed;
 	private Random random;
 
-	protected class Node {
+	public class Node {
 
 		private Key key;
 		private Value value;
@@ -217,7 +223,7 @@ public class RandomBST<Key extends Comparable<Key>, Value> extends
 
 	private void printTree(Node node, boolean isRight, String indent) {
 
-		if (treeIsEmpty()) {
+		if (node == null) {
 			return;
 		}
 
@@ -240,6 +246,116 @@ public class RandomBST<Key extends Comparable<Key>, Value> extends
 	@Override
 	public boolean treeIsEmpty() {
 		return root == null;
+	}
+
+	@Override
+	public void deleteMax() throws EmptyCollectionException,
+			KeyNotFoundException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
+
+		Node x = root;
+
+		while (x.right != null)
+			x = x.right;
+
+		delete(x.key);
+	}
+
+	@Override
+	public void deleteMin() throws EmptyCollectionException,
+			KeyNotFoundException {
+		if (treeIsEmpty())
+			throw new EmptyCollectionException();
+
+		Node x = root;
+
+		while (x.left != null)
+			x = x.left;
+
+		delete(x.key);
+
+	}
+
+	@Override
+	public void traverse() {
+
+	}
+
+	public Iterator<Key> inOrder() {
+
+		List<Key> inOrderList = new LinkedList<>();
+
+		inOrder(root, inOrderList);
+
+		return inOrderList.iterator();
+
+	}
+
+	public Iterator<Key> postOrder() {
+
+		List<Key> postOrderList = new LinkedList<>();
+
+		postOrder(root, postOrderList);
+
+		return postOrderList.iterator();
+
+	}
+	
+	public Iterator<Key> preOrder() {
+
+		return new PreOrder();
+
+	}
+
+	private void inOrder(Node node, List<Key> inOrderList) {
+
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrderList.add(node.key);
+		inOrder(node.right, inOrderList);
+
+	}
+
+	private void postOrder(Node node, List<Key> inOrderList) {
+		if (node == null)
+			return;
+		inOrder(node.left, inOrderList);
+		inOrder(node.right, inOrderList);
+		inOrderList.add(node.key);
+	}
+	
+	private class PreOrder implements Iterator<Key> {
+
+		Stack<Node> stack = new Stack<>();
+
+		public PreOrder() {
+			if (root != null)
+				stack.push(root);
+		}
+
+		@Override
+		public boolean hasNext() {
+			return !stack.isEmpty();
+		}
+
+		@Override
+		public Key next() {
+			if (!hasNext())
+				throw new NoSuchElementException();
+			Node node = stack.pop();
+			if (node.right != null)
+				stack.push(node.right);
+			if (node.left != null)
+				stack.push(node.left);
+			return node.key;
+		}
+
+		@Override
+		public void remove() {
+			// Do Nothing
+		}
 	}
 
 }
