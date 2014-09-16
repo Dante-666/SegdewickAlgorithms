@@ -1,55 +1,56 @@
 package com.algorithms.debug;
 
-import java.util.Iterator;
+import com.algorithms.datastructures.graph.Digraph;
+import com.algorithms.graph.Cycles;
 
-import com.algorithms.datastructures.trees.BinarySearchTree;
-import com.algorithms.datastructures.trees.RandomBST;
-import com.algorithms.datastructures.trees.RedBlackTree;
-import com.algorithms.exceptions.DuplicateKeyException;
-import com.algorithms.exceptions.EmptyCollectionException;
-import com.algorithms.exceptions.KeyNotFoundException;
-import com.algorithms.sorting.ShuffleArray;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-/**
- * Created by dante on 8/9/14.
+/**Test
+ *
+ * Created by sinsi02 on 9/10/2014.
  */
 public class Runner {
-	public static void main(String[] args) throws DuplicateKeyException,
-			KeyNotFoundException, EmptyCollectionException {
+    public static void main(String[] args) throws IOException {
 
-		BinarySearchTree<Integer, Character> btree = new BinarySearchTree<>();
-		// Integer[] testInt = ShuffleArray.knuthShuffleNoDuplicatesInt(20);
+        Digraph<Integer> dg;
 
-		btree.put(4, 'a');
-		btree.put(2, 'b');
-		btree.put(7, 'f');	
-		btree.put(1, 'd');
-		btree.put(3, 'e');
-		btree.put(6, 'c');
-		btree.put(8, 'g');
+        Path file = Paths.get("src/main/resources/Graphs", "testCyclic.txt");
 
-		/*
-		 * btree.put('a','a'); btree.put('b','a'); btree.put('c','a');
-		 * //btree.printTree(); btree.put('d','a'); btree.put('e','a');
-		 * btree.put('f','a'); //btree.printTree(); btree.put('g','a');
-		 * btree.put('h','a'); btree.put('i','a'); //btree.printTree();
-		 * btree.put('j','a'); btree.put('k','a'); btree.put('l','a');
-		 * //btree.printTree(); btree.put('r','a'); btree.put('m','a');
-		 * btree.put('n','a'); //btree.printTree(); btree.put('o','a');
-		 * btree.put('p','a'); btree.put('q','a'); btree.printTree();
-		 */
+        try {
+            InputStream in = Files.newInputStream(file);
 
-		btree.printTree();
+            dg = new Digraph<>(in);
 
-		Iterator<Integer> myIterable = btree.inOrder();
+            Cycles bp = new Cycles(dg);
 
-		while (myIterable.hasNext()) {
-			System.out.println(myIterable.next());
-		}
+            System.out.println(bp);
 
-		System.out.println("Success");
+        } catch (IOException x) {
+            System.err.println(x);
+        }
 
-		// btree.printTree();
+/*        //dg.addVertex(-1);
+        dg.addVertex(0);
+        dg.addVertex(1);
+        dg.addVertex(2);
+        dg.addVertex(3);
+        //dg.addVertex(4);
+        //dg.addVertex(5);
 
-	}
+        //dg.addEdge(4,5);
+        //dg.addEdge(4,3);
+        dg.addEdge(3,0);
+        dg.addEdge(1,3);
+        dg.addEdge(3,2);
+        //dg.addEdge(2,0);
+        //dg.addEdge(1,2);
+        //dg.addEdge(0,1);*/
+
+        //System.out.println(dg);
+
+    }
 }

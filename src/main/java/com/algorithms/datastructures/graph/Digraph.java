@@ -53,6 +53,8 @@ public class Digraph<Vertex> {
      * Constructs a graph from an Input stream like a file. The file should have
      * data arranged in this format given below.
      *
+     * TODO : Cast the string into proper objects as you are reading the file.
+     *
      * <no. of vertices> \n <no. of edges> \n <relationship>
      *
      * @param in The inputstream from which the graph will be constructed based on
@@ -75,16 +77,7 @@ public class Digraph<Vertex> {
 
         while ((line = reader.readLine()) != null) {
             tempString = line.split(" ");
-            /*
-            if (!adjMap.containsKey((Vertex)tempString[0])) {
-                adjMap.put((Vertex) tempString[0], new HashBag<Vertex>());
-            }
-            if (!adjMap.containsKey((Vertex)tempString[1])) {
-                adjMap.put((Vertex) tempString[1], new HashBag<Vertex>());
-            }
-            */
             addEdge((Vertex) tempString[0], (Vertex) tempString[1]);
-            // System.out.println(line);
         }
 
     }
@@ -113,6 +106,16 @@ public class Digraph<Vertex> {
             adjMap.put(w, new HashBag<Vertex>());
         }
         adjMap.get(v).add(w);
+    }
+
+    /**
+     * Returns the outDegree of a vertex.
+     *
+     * @param v The vertex
+     * @return The number of outgoing edges from v.
+     */
+    public int getOutDegree(Object v) {
+        return adjMap.get(v).size();
     }
 
     /**

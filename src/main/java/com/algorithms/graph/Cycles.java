@@ -8,45 +8,114 @@ import java.util.Map;
 import java.util.Stack;
 
 /**
- * Works for only the first cycle and leaves the rest, improve this to implement
- * multiple and all cycles in the graph.
+ * Detects if there is a cycle present in the graph and returns the first detected cycle.
+ * Modify this to return all cycles too.
+ *
+ * TODO: Digraph contains unnecessary values in the graph. Test Graph for the same.
  *
  * Created by dante on 8/10/14.
+ *
  * @version 1.0
  */
 public class Cycles {
 
     private Map<Object, Boolean> marked;
+    private boolean isCyclic;
     private Stack<Object> cycle;
 
-    public Cycles(Graph<?> G){
+    public Cycles(Graph<?> G) {
+
+        this.isCyclic = false;
+        this.marked = new ListOrderedMap<>();
+
+        setMarked(G);
+
+        for (Object x : G.getAllVertices()) {
+
+            if (!isCyclic && !this.marked.get(x)) {
+                this.cycle = new Stack<>();
+                dfs(G, x, null);
+            }
+        }
 
     }
 
-    public Cycles(Digraph<?> G){
-
-        this.cycle=new Stack<>();
+    public Cycles(Digraph<?> G) {
 
         this.marked = new ListOrderedMap<>();
+        this.isCyclic = false;
 
+        for (Object x : G.getAllVertices()) this.marked.put(x, false);
+
+
+        for (Object x : G.getAllVertices()) {
+            if (!isCyclic && !this.marked.get(x)) {
+                this.cycle = new Stack<>();
+                dfs(G, x, false);
+            }
+        }
+    }
+
+    private void setMarked(Graph<?> G) {
         for (Object x : G.getAllVertices()) {
             this.marked.put(x, false);
         }
+    }
 
-        for (Object x : G.getAllVertices()) {
-            if(!this.marked.get(x))
-                dfs(G, x);
+    private void dfs(Graph<?> G, Object v, Object w) {
+
+        this.marked.put(v, true);
+
+        if (G.getDegree(v) == 1) return;
+        else cycle.add(v);
+
+        for (Object temp : G.getAdjacentVertices(v)) {
+
+            if (temp.equals(w)) continue;
+
+            if (isCyclic) break;
+
+            if (cycle.contains(temp)) {
+                isCyclic = true;
+                break;
+            }
+
+            if (!marked.get(temp)) dfs(G, temp, v);
+
+        }
+
+    }
+
+    private void dfs(Digraph<?> G, Object v, boolean deadPath) {
+        this.marked.put(v, true);
+        cycle.add(v);
+        for (Object temp : G.getAdjacentVertices(v)) {
+
+            if (G.getOutDegree(temp) == 0) {
+                this.marked.put(temp, true);
+                deadPath = true;
+                continue;
+            }
+
+            if (isCyclic) break;
+
+            if (cycle.contains(temp)) {
+                isCyclic = true;
+                break;
+            }
+
+            if (!marked.get(temp)) dfs(G, temp, deadPath);
         }
     }
 
-    private void dfs(Digraph<?> G, Object v) {
-        this.marked.put(v, true);
-        for (Object temp : G.getAdjacentVertices(v)) {
-            //if(this.cycle.)
-            this.cycle.push(temp);
-            if (!marked.get(temp)) {
-                dfs(G, temp);
-            }
-        }
+    public boolean isCyclic() {
+        return isCyclic;
+    }
+
+    public String toString() {
+        if (isCyclic)
+            return cycle + "\n" + true;
+        else
+            return "false";
     }
 }
