@@ -26,7 +26,7 @@ import java.util.Map;
  * Design Pattern : Decouple the Graph datatype from the Graph Processing
  * algorithms. Pass the Graph to the routine and query it for information.
  *
- * @author Dante
+ * @author Dante-666
  * @version 2.0
  */
 public class Graph<Vertex> {

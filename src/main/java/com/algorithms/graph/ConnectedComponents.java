@@ -7,7 +7,13 @@ import java.util.Map;
 
 /**
  * Uses Depth First Search internally to maintain the data structure.
+ * <p/>
+ * This will cluster the graph into connected components.
+ *
+ * @author Dante-666
+ * @version 1.0
  */
+
 public class ConnectedComponents {
 
     private int initId;

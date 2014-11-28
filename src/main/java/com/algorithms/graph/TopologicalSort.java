@@ -8,7 +8,8 @@ import java.util.Stack;
 
 /**
  * Check for cycles and report if not DAG.
- * Created by dante on 8/10/14.
+ *
+ * @author Dante-666
  * @version 1.0
  */
 public class TopologicalSort {
@@ -16,7 +17,7 @@ public class TopologicalSort {
     private Map<Object, Boolean> marked;
     private Stack<Object> reversePost;
 
-    public TopologicalSort(Digraph<?> G){
+    public TopologicalSort(Digraph<?> G) {
 
         this.marked = new ListOrderedMap<>();
 
@@ -27,7 +28,7 @@ public class TopologicalSort {
         this.reversePost = new Stack<>();
 
         for (Object x : G.getAllVertices()) {
-            if(!this.marked.get(x))
+            if (!this.marked.get(x))
                 dfs(G, x);
         }
 
@@ -45,7 +46,7 @@ public class TopologicalSort {
         reversePost.push(v);
     }
 
-    public String toString(){
+    public String toString() {
         return reversePost.toString();
     }
 }

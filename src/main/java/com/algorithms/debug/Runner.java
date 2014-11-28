@@ -1,56 +1,39 @@
 package com.algorithms.debug;
 
-import com.algorithms.datastructures.graph.Digraph;
-import com.algorithms.graph.Cycles;
+import com.algorithms.datastructures.string.TernarySearchTrie;
+import com.algorithms.exceptions.KeyNotFoundException;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
-/**Test
- *
+/**
+ * Test
+ * <p/>
  * Created by sinsi02 on 9/10/2014.
  */
 public class Runner {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeyNotFoundException {
 
-        Digraph<Integer> dg;
+        TernarySearchTrie<Integer> r = new TernarySearchTrie<>();
 
-        Path file = Paths.get("src/main/resources/Graphs", "testCyclic.txt");
+        r.put("hello", 1);
+        r.put("hxe", 2);
+        r.put("hxc", 3);
+        r.put("hxcd", 5);
+        r.put("kiran", 7);
 
-        try {
-            InputStream in = Files.newInputStream(file);
+        r.delete("hello");
+        r.delete("hxc");
+        r.delete("hxe");
+        r.delete("hxcd");
+        r.delete("kiran");
 
-            dg = new Digraph<>(in);
-
-            Cycles bp = new Cycles(dg);
-
-            System.out.println(bp);
-
-        } catch (IOException x) {
-            System.err.println(x);
-        }
-
-/*        //dg.addVertex(-1);
-        dg.addVertex(0);
-        dg.addVertex(1);
-        dg.addVertex(2);
-        dg.addVertex(3);
-        //dg.addVertex(4);
-        //dg.addVertex(5);
-
-        //dg.addEdge(4,5);
-        //dg.addEdge(4,3);
-        dg.addEdge(3,0);
-        dg.addEdge(1,3);
-        dg.addEdge(3,2);
-        //dg.addEdge(2,0);
-        //dg.addEdge(1,2);
-        //dg.addEdge(0,1);*/
-
-        //System.out.println(dg);
+        //System.out.println(r.get("h"));
+        //System.out.println(r.get("hello"));
+        //System.out.println(r.get("hxcd"));
+        //System.out.println(r.get("hxc"));
+        //System.out.println(r.get("hxe"));
+        //System.out.println(r.get("kiran"));
+        //System.out.println(r.get("ki"));
 
     }
 }

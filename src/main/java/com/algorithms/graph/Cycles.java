@@ -10,11 +10,10 @@ import java.util.Stack;
 /**
  * Detects if there is a cycle present in the graph and returns the first detected cycle.
  * Modify this to return all cycles too.
- *
+ * <p/>
  * TODO: Digraph contains unnecessary values in the graph. Test Graph for the same.
  *
- * Created by dante on 8/10/14.
- *
+ * @author Dante-666
  * @version 1.0
  */
 public class Cycles {
@@ -28,10 +27,9 @@ public class Cycles {
         this.isCyclic = false;
         this.marked = new ListOrderedMap<>();
 
-        setMarked(G);
+        for (Object x : G.getAllVertices()) this.marked.put(x, false);
 
         for (Object x : G.getAllVertices()) {
-
             if (!isCyclic && !this.marked.get(x)) {
                 this.cycle = new Stack<>();
                 dfs(G, x, null);
@@ -53,12 +51,6 @@ public class Cycles {
                 this.cycle = new Stack<>();
                 dfs(G, x, false);
             }
-        }
-    }
-
-    private void setMarked(Graph<?> G) {
-        for (Object x : G.getAllVertices()) {
-            this.marked.put(x, false);
         }
     }
 

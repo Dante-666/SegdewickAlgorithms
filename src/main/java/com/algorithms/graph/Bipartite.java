@@ -7,9 +7,11 @@ import java.util.Map;
 
 /**
  * This program tells if a graph is bipartite or not.
- * <p/>
- * Created by sinsi02 on 9/10/2014.
+ *
+ * @author Dante-666
+ * @version 1.0
  */
+
 public class Bipartite {
 
     private Map<Object, Boolean> marked;

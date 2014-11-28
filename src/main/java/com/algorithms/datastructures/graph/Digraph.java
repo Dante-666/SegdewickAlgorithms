@@ -13,17 +13,16 @@ import java.util.Map;
 /**
  * This is a local API for a basic digraphIt internally uses the Adjacency-list
  * like the Graph API.
- *
+ * <p/>
  * Native Vertices supported. Can improve upon this.
- *
+ * <p/>
  * Also the graph can be initialized only once with the current settings.
- *
+ * <p/>
  * Design Pattern : Decouple the Graph datatype from the Graph Processing
  * algorithms. Pass the Graph to the routine and query it for information.
  *
- * @author Dante
+ * @author Dante-666
  * @version 1.0
- *
  */
 public class Digraph<Vertex> {
 
@@ -35,12 +34,10 @@ public class Digraph<Vertex> {
      * Constructs an empty graph with the number of vertices and edges passed
      * in.
      *
-     * @param V
-     *            The number of Vertices
-     * @param E
-     *            The number of Edges
+     * @param V The number of Vertices
+     * @param E The number of Edges
      */
-    
+
     public Digraph(int V, int E) {
         this.V = V;
         this.E = E;
@@ -52,9 +49,9 @@ public class Digraph<Vertex> {
     /**
      * Constructs a graph from an Input stream like a file. The file should have
      * data arranged in this format given below.
-     *
+     * <p/>
      * TODO : Cast the string into proper objects as you are reading the file.
-     *
+     * <p/>
      * <no. of vertices> \n <no. of edges> \n <relationship>
      *
      * @param in The inputstream from which the graph will be constructed based on
@@ -86,17 +83,15 @@ public class Digraph<Vertex> {
      * Reverses all the edges of the Digraph.
      */
 
-    public void reverse(){
+    public void reverse() {
 
     }
 
     /**
      * Add an edge between the vertices v-w.
      *
-     * @param v
-     *            The number of the first vertex.
-     * @param w
-     *            The number of the second vertex.
+     * @param v The number of the first vertex.
+     * @param w The number of the second vertex.
      */
     public void addEdge(Vertex v, Vertex w) {
         if (!adjMap.containsKey(v)) {
@@ -121,8 +116,7 @@ public class Digraph<Vertex> {
     /**
      * Returns vertices adjacent to vertex v.
      *
-     * @param v
-     *            The number of the vertex.
+     * @param v The number of the vertex.
      * @return The adjacent vertices list in an iterator.
      */
     public Iterable<Vertex> getAdjacentVertices(Object v) {
@@ -134,7 +128,7 @@ public class Digraph<Vertex> {
      *
      * @return The entire Vertex list.
      */
-    public Iterable<Vertex> getAllVertices(){
+    public Iterable<Vertex> getAllVertices() {
         return adjMap.keySet();
     }
 
@@ -155,7 +149,7 @@ public class Digraph<Vertex> {
     /**
      * Overrides the toString method to return a string representation of the
      * graph.
-     *
+     * <p/>
      * Shows double edges too.
      *
      * @return String representation of the graph.

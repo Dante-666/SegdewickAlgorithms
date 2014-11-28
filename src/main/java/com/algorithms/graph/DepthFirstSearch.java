@@ -10,7 +10,7 @@ import java.util.Map;
  * Depth First Search, recursive algorithm, works by visiting each adjacent edge
  * and marking them as it goes.
  *
- * @author sinsi02
+ * @author Dante-666
  * @version 2.0
  */
 
