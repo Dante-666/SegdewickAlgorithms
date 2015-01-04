@@ -108,4 +108,25 @@ public class RWayTrie<Value> implements Trie<Value> {
         return node.numChildren == 0 && node.value == null;
     }
 
+
+    @Override
+    public Iterable<String> keys() {
+        return null;
+    }
+
+    @Override
+    public Iterable<String> keysWithPrefix(String pre) {
+        return null;
+    }
+
+    @Override
+    public Iterable<String> keysThatMatch(String pattern) {
+        return null;
+    }
+
+    @Override
+    public String longestPrefixOf(String string) {
+        return null;
+    }
+
 }

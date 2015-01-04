@@ -1,7 +1,22 @@
 package com.algorithms.substring;
 
 /**
- * Created by sinsi02 on 12/4/2014.
+ * @author Dante-666
+ * @version 1.0
  */
-public class BruteForce {
+public class BruteForce implements SubstringSearch {
+
+    public int search(String text, String pattern) {
+        int M = text.length();
+        int N = pattern.length();
+
+        for (int i = 0; i < M - N; i++) {
+            int j;
+            for (j = 0; j < N; i++)
+                if (text.charAt(i + j) != pattern.charAt(j))
+                    break;
+            if (j == N) return i;
+        }
+        return N;
+    }
 }

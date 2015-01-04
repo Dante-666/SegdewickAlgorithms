@@ -2,6 +2,9 @@ package com.algorithms.datastructures.string;
 
 import com.algorithms.exceptions.KeyNotFoundException;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * @author Dante-666
  * @version 1.0
@@ -119,6 +122,117 @@ public class TernarySearchTrie<Value> implements Trie<Value> {
 
     private boolean match(Node node, Character ch) {
         return node.value != null && node.ch.equals(ch);
+    }
+
+    @Override
+    public Iterable<String> keys() {
+        Queue<String> queue = new LinkedList<>();
+        collect(this.root, "", queue);
+        return queue;
+    }
+
+    @Override
+    public Iterable<String> keysWithPrefix(String prefix) {
+        Queue<String> queue = new LinkedList<>();
+        try {
+            Node node = find(this.root, prefix);
+            collect(node, prefix, queue);
+            return queue;
+        } catch (KeyNotFoundException e) {
+            return queue;
+        }
+    }
+
+    @Override
+    public Iterable<String> keysThatMatch(String pattern) {
+        Queue<String> queue = new LinkedList<>();
+        String newPattern = pattern.replace(".", "");
+
+        int[] position = new int[pattern.length() - newPattern.length()];
+        int j = 0;
+
+        for (int i = 0; i < pattern.length(); i++) {
+            if (pattern.charAt(i) == '.') {
+                position[j++] = i;
+            }
+        }
+
+        keysThatMatch(this.root, newPattern, "", 0, position, queue);
+
+        return queue;
+    }
+
+    private void keysThatMatch(Node node, String pattern, String string, int index, int[] position, Queue<String> queue) {
+        if (node == null || index > pattern.length() + position.length - 1) return;
+
+        if (node.value != null && index == pattern.length() + position.length - 1) {
+            StringBuilder check = new StringBuilder(string + node.ch);
+
+            for (int i = 0; i < position.length; i++) {
+                check.deleteCharAt(position[i] - i);
+            }
+            if (new String(check).equals(pattern))
+                queue.add(string + node.ch);
+        }
+
+        keysThatMatch(node.left, pattern, string, index, position, queue);
+        keysThatMatch(node.middle, pattern, string + node.ch, index + 1, position, queue);
+        keysThatMatch(node.right, pattern, string, index, position, queue);
+
+    }
+
+
+    @Override
+    public String longestPrefixOf(String prefix) {
+        StringBuilder result = new StringBuilder();
+        longestPrefixOf(this.root, prefix, result, 0);
+        return new String(result);
+    }
+
+    private void longestPrefixOf(Node node, String prefix, StringBuilder result, int index) {
+
+        if(node == null) return;
+
+        Character ch;
+
+        ch = prefix.charAt(index);
+
+        int cmp = ch.compareTo(node.ch);
+
+        if (cmp > 0) longestPrefixOf(node.right, prefix, result, index);
+        else if (cmp < 0) longestPrefixOf(node.left, prefix, result, index);
+        else longestPrefixOf(node.middle, prefix, result.append(ch), index + 1);
+
+    }
+
+    private void collect(Node node, String string, Queue<String> queue) {
+        if (node == null) return;
+
+        if (node.value != null) queue.add(string + node.ch);
+
+        collect(node.left, string, queue);
+        collect(node.middle, string + node.ch, queue);
+        collect(node.right, string, queue);
+
+    }
+
+    private Node find(Node node, String string) throws KeyNotFoundException {
+        int index = 0;
+        while (index < string.length()) {
+
+            if (node == null) throw new KeyNotFoundException();
+
+            int cmp = node.ch.compareTo(string.charAt(index));
+
+            if (cmp < 0) node = node.right;
+            else if (cmp > 0) node = node.left;
+            else {
+                node = node.middle;
+                index++;
+            }
+
+        }
+        return node;
     }
 
 }

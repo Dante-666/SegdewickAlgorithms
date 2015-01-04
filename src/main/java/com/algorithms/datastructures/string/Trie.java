@@ -12,4 +12,12 @@ public interface Trie<Value> {
     public Value get(String key) throws KeyNotFoundException;
 
     public void delete(String key) throws KeyNotFoundException;
+
+    public Iterable<String> keys();
+
+    public Iterable<String> keysWithPrefix(String pre);
+
+    public Iterable<String> keysThatMatch(String pattern);
+
+    public String longestPrefixOf(String string);
 }

@@ -1,7 +1,9 @@
 package com.algorithms.substring;
 
 /**
- * Created by sinsi02 on 12/4/2014.
+ * @author Dante-666
+ * @version 1.0
  */
 public interface SubstringSearch {
+    public int search(String text, String pattern);
 }
