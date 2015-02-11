@@ -1,8 +1,6 @@
 package com.algorithms.debug;
 
-import com.algorithms.datastructures.string.TernarySearchTrie;
-import com.algorithms.exceptions.KeyNotFoundException;
-import com.algorithms.substring.KnuthMorrisPratt;
+import com.algorithms.substring.RegEx;
 
 import java.io.IOException;
 
@@ -12,13 +10,11 @@ import java.io.IOException;
  * Created by sinsi02 on 9/10/2014.
  */
 public class Runner {
-    public static void main(String[] args) throws IOException, KeyNotFoundException {
+    public static void main(String[] args) throws IOException {
 
-        TernarySearchTrie<Integer> r = new TernarySearchTrie<>();
+        RegEx reg = new RegEx("aabd", "((a*b|ac)d)");
 
-        KnuthMorrisPratt kmp = new KnuthMorrisPratt();
-
-        System.out.print(kmp.search("aaabbbaababbabbaaabbbaababcaaaaabbabbabaaacc", "ababc"));
+        System.out.print(reg.matched("aabdxxsaaacdaaabdadaacaaadxacd"));
         //System.out.print(kmp.search("aababc", "ababc"));
 
     }

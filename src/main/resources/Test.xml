@@ -1,6 +1,16 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="TestAlgorithms">
+    <test name="Dynamic">
+        <groups>
+            <run>
+                <exclude name="Basic-DP"/>
+            </run>
+        </groups>
+        <classes>
+            <class name="com.algorithms.dynamic.test.TestDynamic"/>
+        </classes>
+    </test>
     <test name="Queues">
         <groups>
             <run>
@@ -19,7 +29,7 @@
     <test name="Graphs">
         <groups>
             <run>
-                <include name="Test-Graphs"/>
+                <exclude name="Test-Graphs"/>
             </run>
         </groups>
         <classes>

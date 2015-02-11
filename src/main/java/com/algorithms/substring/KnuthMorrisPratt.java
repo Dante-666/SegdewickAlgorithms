@@ -8,7 +8,7 @@ import org.apache.commons.collections4.set.ListOrderedSet;
  */
 public class KnuthMorrisPratt implements SubstringSearch {
     @Override
-    public int search(String text, String pattern) {
+    public int search(CharSequence text, String pattern) {
 
         int i, j, M = text.length(), N = pattern.length();
         int[][] dfa;
@@ -33,7 +33,7 @@ public class KnuthMorrisPratt implements SubstringSearch {
             try {
                 j = dfa[chars.indexOf(text.charAt(i))][j];
             } catch (ArrayIndexOutOfBoundsException e){
-                continue;
+                //continue;
             }
         if (j == N) return i - N;
         else return M;

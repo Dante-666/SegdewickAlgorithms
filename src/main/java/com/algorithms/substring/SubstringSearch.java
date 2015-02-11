@@ -5,5 +5,5 @@ package com.algorithms.substring;
  * @version 1.0
  */
 public interface SubstringSearch {
-    public int search(String text, String pattern);
+    public int search(CharSequence text, String pattern);
 }

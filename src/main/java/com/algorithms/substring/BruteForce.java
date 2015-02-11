@@ -6,7 +6,7 @@ package com.algorithms.substring;
  */
 public class BruteForce implements SubstringSearch {
 
-    public int search(String text, String pattern) {
+    public int search(CharSequence text, String pattern) {
         int M = text.length();
         int N = pattern.length();
 
