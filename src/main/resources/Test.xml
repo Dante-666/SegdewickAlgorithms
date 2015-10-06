@@ -14,11 +14,11 @@
     <test name="Queues">
         <groups>
             <run>
-                <exclude name="MaxHeapIntegers"/>
-                <exclude name="MinHeapIntegers"/>
+                <include name="MaxHeapIntegers"/>
+                <include name="MinHeapIntegers"/>
 
-                <exclude name="MaxHeapCharacters"/>
-                <exclude name="MinHeapCharacters"/>
+                <include name="MaxHeapCharacters"/>
+                <include name="MinHeapCharacters"/>
             </run>
         </groups>
         <classes>
@@ -29,7 +29,7 @@
     <test name="Graphs">
         <groups>
             <run>
-                <exclude name="Test-Graphs"/>
+                <include name="Test-Graphs"/>
             </run>
         </groups>
         <classes>
@@ -40,11 +40,11 @@
     <test name="Trees">
         <groups>
             <run>
-                <exclude name="Two-Three Tree"/>
+                <include name="Two-Three Tree"/>
                 <exclude name="BST"/>
-                <exclude name="AVL Tree"/>
-                <exclude name="Red Black Tree"/>
-                <exclude name="Random BST"/>
+                <include name="AVL Tree"/>
+                <include name="Red Black Tree"/>
+                <include name="Random BST"/>
                 <exclude name="Deletion"/>
             </run>
         </groups>
@@ -56,10 +56,10 @@
     <test name="Sorting">
         <groups>
             <run>
-                <exclude name="Integer-Sorting"/>
-                <exclude name="Character-Sorting"/>
-                <exclude name="Primitive Sort"/>
-                <exclude name="Fast Sort"/>
+                <include name="Integer-Sorting"/>
+                <include name="Character-Sorting"/>
+                <include name="Primitive Sort"/>
+                <include name="Fast Sort"/>
             </run>
         </groups>
         <classes>

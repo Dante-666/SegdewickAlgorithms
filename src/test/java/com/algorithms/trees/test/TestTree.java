@@ -35,7 +35,6 @@ public class TestTree {
 		randomCharArray = ShuffleArray.knuthShuffleWithDuplicatesChar(seed);
 		timeKeeper = 0;
 
-		// System.out.println("Running Tree Tests with Seed : " + seed);
 	}
 
 	@BeforeTest
@@ -434,7 +433,7 @@ public class TestTree {
 
 	}
 
-	
+
 	//TODO : Write a better skeleton for deletion and fix the empty collection exception.
 	@AfterGroups({ "Insertion", "Search" })
 	@Test(groups = "BST")
